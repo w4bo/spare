@@ -4,7 +4,6 @@ import apriori.SPARELauncher
 import input.SnapshotGenerator
 import it.unibo.tip.timer.Timer
 import org.apache.log4j.{Level, Logger}
-import org.apache.spark.SparkConf
 import org.apache.spark.api.java.JavaSparkContext
 import org.apache.spark.sql.SparkSession
 import org.rogach.scallop.ScallopConf

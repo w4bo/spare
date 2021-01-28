@@ -12,6 +12,6 @@ import scala.Tuple2
 
 class TestMain {
     @Test def test01(): Unit = {
-        ClusteringAndSPAREMain.execute("src/main/resources/SimpleDataset.tsv", "src/main/resources", 1, 1, 1, 1, 1, 1)
+        ClusteringAndSPAREMain.execute("src/main/resources/SimpleDataset.tsv", "src/main/resources/output", 1, 1, 1, 1, 1, 1)
     }
 }
