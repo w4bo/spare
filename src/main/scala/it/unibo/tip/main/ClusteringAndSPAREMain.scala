@@ -1,15 +1,18 @@
 package it.unibo.tip.main
 
-import apriori.SPARELauncher
+import apriori.{DuplicateClusterFilter, SPARELauncher}
 import input.SnapshotGenerator
 import it.unibo.tip.timer.Timer
+import it.unimi.dsi.fastutil.ints.IntSet
 import org.apache.log4j.{Level, Logger}
-import org.apache.spark.api.java.JavaSparkContext
+import org.apache.spark.api.java.{JavaRDD, JavaSparkContext}
 import org.apache.spark.sql.SparkSession
 import org.rogach.scallop.ScallopConf
 
 import java.io.{BufferedWriter, File, FileWriter}
 import java.nio.file.{Files, Paths}
+import java.util
+import java.util.List
 
 /**
  * This class will include the clustering and spare process together
@@ -18,7 +21,7 @@ object ClusteringAndSPAREMain {
 
     def execute(dataset: String, outputdir: String,
                 k: Int, l: Int, m: Int, g: Int, eps: Int, minpts: Int,
-                exec: Int = 1, ram: String = "1g", cores: Int = 1, part: Int = 10, earth: Int = 1, master: String = "local[1]"): Unit = {
+                exec: Int = 1, ram: String = "1g", cores: Int = 1, part: Int = 10, earth: Int = 1, master: String = "local[1]"): JavaRDD[IntSet] = {
         val clusterOutputPath = outputdir + "/clusters/"
         val snapshotInputPath = s"$clusterOutputPath/clusters-e${eps}-p${minpts}"
         val clusteringName = "DBSCAN-E=" + eps + "-P=" + minpts
@@ -37,14 +40,15 @@ object ClusteringAndSPAREMain {
         val snapshotGenerator = new SnapshotGenerator(eps, minpts, dataset, clusterOutputPath, part, m, earth)
         snapshotGenerator.cluster(jsc)
         val spareLauncher = new SPARELauncher(snapshotInputPath, outputdir, m, k, l, g, part)
-        val value = spareLauncher executeSpare (jsc)
+        val output = spareLauncher executeSpare (jsc)
         println(s"Elapsed seconds: ${timer.getTimeInSeconds()}")
         val timeName = s"logs/time_" + outputdir.replace("/", "_")
-        if (value == 0) {
+        if (output != null) {
             writeTimeOnFile(timeName, timer.getTimeInMillis())
         } else {
             writeTimeOnFile(timeName, Long.MaxValue)
         }
+        output
     }
 
     def main(args: Array[String]): Unit = {

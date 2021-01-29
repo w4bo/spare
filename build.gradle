@@ -57,6 +57,15 @@ task snapshotGeneratorJar(type: ShadowJar) {
     from(shadowJar.from())
     zip64 true
 }
+
+
+test {
+    testLogging {
+        outputs.upToDateWhen { false }
+        showStandardStreams = true
+    }
+}
+
 // task spareJar(type: ShadowJar) {
 //     classifier = 'spare'
 //     manifest.attributes 'Main-Class': 'it.unibo.tip.spare.SPAREMain'
