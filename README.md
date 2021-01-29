@@ -28,6 +28,8 @@ spark-submit Trajectory-Instrumentally-project-x.x.x-clustering.jar \
 --debug=OFF
 ```
 
+git pull; ./gradlew; spark-submit build/libs/SPARE-0.0.1-all.jar --class TestMain
+
 where: 
    * `--input_file=hdfs/input/files/path` is the absolute path of the input file or folder
    * `--output_dir=/hdfs/output/files/path` is the absolute path of the output folder

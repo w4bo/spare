@@ -92,8 +92,11 @@ public class SPARELauncher implements Serializable {
                 });
         List<IntSet> grounds = output.collect();
 
+        System.out.println("Results!!!");
         this.checkOutputFolder(context, hdfsOutputPath);
+        System.out.println(hdfsOutputPath);
         output.filter(new DuplicateClusterFilter(grounds)).saveAsTextFile(hdfsOutputPath);
+        output.filter(new DuplicateClusterFilter(grounds)).collect().forEach(System.out::println);
         context.close();
         return 0;
     }
