@@ -1,10 +1,8 @@
 import com.google.common.collect.Sets
 import it.unibo.tip.main.ClusteringAndSPAREMain
-import it.unimi.dsi.fastutil.ints.{IntCollection, IntIterator, IntSet}
+import it.unimi.dsi.fastutil.ints.IntSet
 import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import java.util
 
 
 class TestMain {
@@ -16,6 +14,6 @@ class TestMain {
 
     @Test def testFlock(): Unit = {
         val res = ClusteringAndSPAREMain.execute(s"$path/flock1.tsv", s"$path/output", 2, 1, 2, 1).collect().toArray()
-        assertEquals(Array(Sets.newHashSet(1, 2)), res.asInstanceOf[Array[IntSet]])
+        assertEquals(s"Got $res", Array(Sets.newHashSet(1, 2)), res.asInstanceOf[Array[IntSet]])
     }
 }
