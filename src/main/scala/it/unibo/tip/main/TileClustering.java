@@ -32,7 +32,7 @@ public class TileClustering implements ClusteringMethod {
             for (int pid: v1._2.getObjects()) {
                 final Point p = v1._2.getPoint(pid);
                 final double lat = Math.round(p.getLat() / (11 * bin_lat)) * (11 * bin_lat);
-                final double lon = Math.round(p.getLon() / (13 * bin_lon)) * (13 * bin_lon);
+                final double lon = Math.round(p.getLon() / (15 * bin_lon)) * (15 * bin_lon);
                 clusters.compute(Pair.of(lat, lon), (key, value) -> {
                     Set<Integer> res = value;
                     if (res == null) res = Sets.newHashSet(pid);

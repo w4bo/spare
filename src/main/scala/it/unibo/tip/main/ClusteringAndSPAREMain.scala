@@ -20,7 +20,7 @@ import java.util.List
 object ClusteringAndSPAREMain {
 
     def execute(dataset: String, outputdir: String,
-                k: Int, l: Int, m: Int, g: Int, eps: Int, minpts: Int,
+                k: Int, l: Int, m: Int, g: Int, eps: Int = -1, minpts: Int = -1,
                 exec: Int = 1, ram: String = "1g", cores: Int = 1, part: Int = 10, earth: Int = 1, master: String = "local[1]"): JavaRDD[IntSet] = {
         val clusterOutputPath = outputdir + "/clusters/"
         val snapshotInputPath = s"$clusterOutputPath/clusters-e${eps}-p${minpts}"
