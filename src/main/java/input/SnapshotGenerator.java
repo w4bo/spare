@@ -62,7 +62,7 @@ public class SnapshotGenerator {
         final JavaRDD<SnapshotClusters> clusters = cm.doClustering(input);
         if (runOnCluster) {
             // final String hdfs_out = String.format(hdfsOutputPath + "/clusters", epsilon, minPoints);
-            final String hdfs_out = hdfsOutputPath + "/clusters";
+            final String hdfs_out = hdfsOutputPath;
             checkOutputFolder(context, hdfsOutputPath);
             clusters.saveAsObjectFile(hdfs_out);
             return null;

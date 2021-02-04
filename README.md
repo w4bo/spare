@@ -16,7 +16,7 @@ Simply launch the following command:
 
 ```
 spark-submit Trajectory-Instrumentally-project-x.x.x-clustering.jar \
---input_file=hdfs/input/files/path \
+--input_file=/hdfs/input/files/path \
 --output_dir=/hdfs/output/files/path \ 
 --epsilon=X \
 --min-points=Y \
@@ -62,8 +62,8 @@ spark-submit Trajectory-Instrumentally-project-x.x.x-spare.jar \
 ```
 
 where: 
-   * `--input_file=hdfs/input/files/path` is the absolute path of the input file or folder
-   * `--output_dir=/hdfs/output/files/path` is the absolute path of the output folder
+   * `--input=hdfs/input/files/path` is the absolute path of the input file or folder
+   * `--output=/hdfs/output/files/path` is the absolute path of the output folder
    * `--gcmp_m=M` is the **M** value for GCMP, used for pruning.
    * `--gcmp_k=K` is the **K** value for GCMP, used for pruning.
    * `--gcmp_l=L` is the **L** value for GCMP, used for pruning.
@@ -73,3 +73,16 @@ where:
    * `--numcores=C` is the number of cores per executor used by _Spark_
    * `--executormemory=5g` is the memory allocated for each executor 
    * `--debug=OFF` activate or disable _Spark_ logs
+
+
+spark-submit --class it.unibo.tip.main.Main \
+    build/libs/SPARE-all.jar \
+    --input=/user/mfrancia/spare/input/flock2.tsv \
+    --output=/user/mfrancia/spare/input/output/ \
+    --m=2 \
+    --k=3 \
+    --l=3 \
+    --g=1 \
+    --executors=10 \
+    --cores=3 \
+    --ram=8g

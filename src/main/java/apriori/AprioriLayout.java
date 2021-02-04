@@ -32,22 +32,6 @@ public class AprioriLayout implements AlgoLayout {
     private final CliqueMiner clique_miner;
     private final EdgeLSimplification edge_simplifier;
 
-
-    public AprioriLayout(int k, int m, int l, int g) {
-        K = k;
-        L = l;
-        M = m;
-        G = g;
-        edge_seg = new EdgeSegmentor();
-        edge_reducer = new EdgeReducer();
-        edge_filter = new EdgeFilter(K, M, L, G);
-        edge_mapper = new EdgeMapper();
-        clique_miner = new CliqueMiner(K, M, L, G);
-        //	clique_miner = new EagerCliqueMiner(K,M,L,G);
-        edge_simplifier = new EdgeLSimplification(K, L, G);
-        clique_partitions = 195; //32 executors
-    }
-
     public AprioriLayout(int k, int m, int l, int g, int pars) {
         K = k;
         L = l;
@@ -72,24 +56,24 @@ public class AprioriLayout implements AlgoLayout {
     public JavaRDD<IntSet> runLogic() {
 
         // Create G(t) for each snapshot t
-        JavaPairRDD<Tuple2<Integer, Integer>, IntSortedSet> stage1 = input.flatMapToPair(edge_seg).persist(MEMORY_AND_DISK);
-        logger.debug("Sum of all the edges from every G(t) inside the system: " + stage1.count());
+        JavaPairRDD<Tuple2<Integer, Integer>, IntSortedSet> stage1 = input.flatMapToPair(edge_seg); // .persist(MEMORY_AND_DISK)
+        // logger.debug("Sum of all the edges from every G(t) inside the system: " + stage1.count());
 
         // Build the GA of the whole dataset, merging intsets by key, so merge together two edges if they connect the
         // same two nodes(objects or trajectories, does not matter), so builds tuples in the form
-        JavaPairRDD<Tuple2<Integer, Integer>, IntSortedSet> stage2 = stage1.reduceByKey(edge_reducer);//		.cache();
-        logger.debug("Condensed edges in connection graph:\t" + stage2.count());
+        JavaPairRDD<Tuple2<Integer, Integer>, IntSortedSet> stage2 = stage1.reduceByKey(edge_reducer); // .persist(MEMORY_AND_DISK)
+        // logger.debug("Condensed edges in connection graph:\t" + stage2.count());
 
         JavaPairRDD<Tuple2<Integer, Integer>, IntSortedSet> stage3 = stage2
                 .mapValues(edge_simplifier) // L-semplification
                 .filter(edge_filter) // G-semplification
                 //.cache(); //This should be modified
                 .persist(MEMORY_AND_DISK);
-        logger.debug("2-long itemset with semplified time-sequence:\t" + stage3.count());
+        // logger.debug("2-long itemset with semplified time-sequence:\t" + stage3.count());
 
         // For each ObjectID(or TrajectoryID), create and group tuples on the key(TrajectoryID)
         // The output is in the form of (i, Array[(j, [t1,..,tn])])
-        JavaPairRDD<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> stage4 = stage3.mapToPair(edge_mapper).groupByKey(clique_partitions).persist(DISK_ONLY);
+        JavaPairRDD<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> stage4 = stage3.mapToPair(edge_mapper).groupByKey(clique_partitions).cache();
         Map<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> stage4result = stage4.collectAsMap();
         logger.debug("Star size distribution:");
         for (Map.Entry<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> entry : stage4result.entrySet()) {

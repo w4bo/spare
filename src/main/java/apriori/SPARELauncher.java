@@ -7,7 +7,6 @@ import org.apache.hadoop.fs.Path;
 import org.apache.log4j.Logger;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.api.java.function.Function;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -18,8 +17,8 @@ import java.util.List;
  */
 public class SPARELauncher implements Serializable {
     private static final Logger logger = Logger.getLogger(SPARELauncher.class);
-    private final String hdfsInputPath;
-    private final String hdfsOutputPath;
+    private final String clusterDir;
+    private final String itemsetDir;
     private final int input_partition;
     private final int gcmpM;
     private final int gcmpK;
@@ -29,17 +28,17 @@ public class SPARELauncher implements Serializable {
     /**
      * Default constructor for the class.
      *
-     * @param hdfsInputPath   the input path
-     * @param hdfsOutputPath  the output path
+     * @param clusterDir      the input path
+     * @param itemsetDir      the output path
      * @param gcmpM           m parameter for GCMP
      * @param gcmpK           k parameter for GCMP
      * @param gcmpL           l parameter for GCMP
      * @param gcmpG           g parameter for GCMP
      * @param input_partition the number of partition in which the input will be split.
      */
-    public SPARELauncher(String hdfsInputPath, String hdfsOutputPath, int gcmpM, int gcmpK, int gcmpL, int gcmpG, int input_partition) {
-        this.hdfsInputPath = hdfsInputPath;
-        this.hdfsOutputPath = hdfsOutputPath;
+    public SPARELauncher(String clusterDir, String itemsetDir, int gcmpM, int gcmpK, int gcmpL, int gcmpG, int input_partition) {
+        this.clusterDir = clusterDir;
+        this.itemsetDir = itemsetDir;
         this.gcmpM = gcmpM;
         this.gcmpK = gcmpK;
         this.gcmpL = gcmpL;
@@ -55,17 +54,19 @@ public class SPARELauncher implements Serializable {
         // .set("spark.executor.cores", "5");
         // JavaSparkContext context = new JavaSparkContext(conf);
         // Load input data directly from HDFS and split into the desired number of cluster.
-        final JavaRDD<SnapshotClusters> clusters = prevClusters == null ? context.objectFile(this.hdfsInputPath, this.input_partition) : prevClusters;
-        final AlgoLayout al = new AprioriLayout(this.gcmpK, this.gcmpM, this.gcmpL, this.gcmpG, this.input_partition);
+        final JavaRDD<SnapshotClusters> clusters = prevClusters == null ? context.objectFile(clusterDir, input_partition) : prevClusters;
+        final AlgoLayout al = new AprioriLayout(gcmpK, gcmpM, gcmpL, gcmpG, input_partition);
         al.setInput(clusters);
-        final JavaRDD<IntSet> output = al.runLogic().filter(v1 -> v1.size() > 0);
-        checkOutputFolder(context, hdfsOutputPath);
+        JavaRDD<IntSet> output = al.runLogic().filter(v1 -> v1.size() > 0);
+        checkOutputFolder(context, itemsetDir);
         final List<IntSet> grounds = output.collect();
+        output = output.filter(new DuplicateClusterFilter(grounds)).cache();
         if (prevClusters == null) {
-            output.filter(new DuplicateClusterFilter(grounds)).saveAsTextFile(hdfsOutputPath);
+            output.saveAsTextFile(itemsetDir);
+            logger.info("Patterns: " + output.count());
             return null;
         } else {
-            return output.filter(new DuplicateClusterFilter(grounds));
+            return output;
         }
     }
 
