@@ -23,12 +23,12 @@ object ClusteringAndSPAREMain {
   private val logger = Logger.getLogger(classOf[TileClustering])
 
   def execute(dataset: String, outputdir: String,
-              m: Int, k: Int, l: Int, g: Int, bins: Int = 10,
+              m: Int, k: Int, l: Int, g: Int,
               eps: Int = -1, minpts: Int = -1,
               exec: Int = 1, ram: String = "1g", cores: Int = 1, part: Int = 10, earth: Int = 1, master: String = "local[1]"): util.List[IntSet] = {
     val clusterOutputPath = outputdir + "/clusters/"
     val snapshotInputPath = s"$clusterOutputPath/clusters-e${eps}-p${minpts}"
-    val spareName = "Apriori-K" + k + "-L" + l + "-M" + m + "-G" + g + "-File" + snapshotInputPath
+    val spareName = "Spare-K" + k + "-L" + l + "-M" + m + "-G" + g + "-" + dataset
     logger.info(spareName)
     Logger.getLogger("org").setLevel(Level.OFF);
     Logger.getLogger("aka").setLevel(Level.OFF);
@@ -38,19 +38,19 @@ object ClusteringAndSPAREMain {
         .master(master)
         .config("spark.master", master)
         .config("spark.executor.memory", ram)
-        .config("spark.executor.instances", exec + "")
-        .config("spark.executor.cores", cores + "")
+        .config("spark.executor.instances", exec)
+        .config("spark.executor.cores", cores)
         .getOrCreate()
-    val jsc = new JavaSparkContext(spark.sparkContext)
-    val timer = Timer()
+    val timer = Timer() // init the timer
+    val jsc = new JavaSparkContext(spark.sparkContext) // create the spark context
     val snapshotGenerator = new SnapshotGenerator(eps, minpts, dataset, clusterOutputPath, part, m, earth)
-    val clusters = snapshotGenerator.cluster(jsc, bins, false)
+    val runOnCluster = !master.startsWith("local")
+    val clusters = snapshotGenerator.cluster(jsc, runOnCluster) // create the clusters (save to hdfs if not running on local)
     val spareLauncher = new SPARELauncher(snapshotInputPath, outputdir, m, k, l, g, part)
     val output = spareLauncher executeSpare(jsc, clusters)
-    logger.debug(s"Elapsed seconds: ${timer.getTimeInSeconds()}")
     val timeName = s"logs/time_" + outputdir.replace("/", "_")
-    writeTimeOnFile(timeName, if (output != null) timer.getTimeInMillis() else Long.MaxValue)
-    if (output != null) output.collect() else null
+    writeTimeOnFile(timeName, timer.getTimeInMillis())
+    if (!runOnCluster) output.collect() else null
   }
 
   def main(args: Array[String]): Unit = {
@@ -62,14 +62,14 @@ object ClusteringAndSPAREMain {
       conf.gcmp_k(),
       conf.gcmp_l(),
       conf.gcmp_g(),
-      conf.bins(),
       conf.epsilon(),
       conf.min_points(),
       conf.numexecutors(),
       conf.executormemory(),
       conf.numcores(),
-      conf.input_partitions.getOrElse(10),
-      conf.earth.getOrElse(1)
+      conf.input_partitions(),
+      conf.earth.getOrElse(1),
+      conf.master()
     )
   }
 
@@ -100,7 +100,6 @@ class Conf(arguments: Seq[String]) extends ScallopConf(arguments) {
   val gcmp_l = opt[Int](required = true)
   val gcmp_g = opt[Int](required = true)
   val input_partitions = opt[Int]()
-  val bins = opt[Int]()
   val numexecutors = opt[Int]()
   val numcores = opt[Int]()
   val executormemory = opt[String]()
@@ -108,5 +107,6 @@ class Conf(arguments: Seq[String]) extends ScallopConf(arguments) {
   val epsilon = opt[Int](required = true)
   val min_points = opt[Int](required = true)
   val earth = opt[Int]()
+  val master = opt[String]()
   verify()
 }

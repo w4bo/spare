@@ -50,22 +50,18 @@ public class SPARELauncher implements Serializable {
     /**
      * Launch and execute the SPARE algorithm.
      */
-    public JavaRDD<IntSet> executeSpare(final JavaSparkContext context, final JavaRDD<SnapshotClusters> javardd) throws IOException {
+    public JavaRDD<IntSet> executeSpare(final JavaSparkContext context, final JavaRDD<SnapshotClusters> prevClusters) throws IOException {
         // .set("spark.executor.instances", "4")
         // .set("spark.executor.cores", "5");
         // JavaSparkContext context = new JavaSparkContext(conf);
-        //Load input data directly from HDFS and split into the desired number of cluster.
-        final JavaRDD<SnapshotClusters> CLUSTERS = javardd == null ? context.objectFile(this.hdfsInputPath, this.input_partition) : javardd;
-        if (CLUSTERS.collect().size() == 0) {
-            logger.debug("No cluster is found, skipping...");
-            return null;
-        }
+        // Load input data directly from HDFS and split into the desired number of cluster.
+        final JavaRDD<SnapshotClusters> clusters = prevClusters == null ? context.objectFile(this.hdfsInputPath, this.input_partition) : prevClusters;
         final AlgoLayout al = new AprioriLayout(this.gcmpK, this.gcmpM, this.gcmpL, this.gcmpG, this.input_partition);
-        al.setInput(CLUSTERS);
+        al.setInput(clusters);
         final JavaRDD<IntSet> output = al.runLogic().filter(v1 -> v1.size() > 0);
-        this.checkOutputFolder(context, hdfsOutputPath);
+        checkOutputFolder(context, hdfsOutputPath);
         final List<IntSet> grounds = output.collect();
-        if (javardd == null) {
+        if (prevClusters == null) {
             output.filter(new DuplicateClusterFilter(grounds)).saveAsTextFile(hdfsOutputPath);
             return null;
         } else {

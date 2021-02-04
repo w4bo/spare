@@ -22,8 +22,6 @@ import java.util.UUID;
 public class TileClustering implements ClusteringMethod {
     private static final Logger logger = Logger.getLogger(TileClustering.class);
     private final int M;
-    private final int bin_lat;
-    private final int bin_lon;
 
     public class TileWrapper implements Function<Tuple2<Integer, SnapShot>, SnapshotClusters> {
 
@@ -34,11 +32,11 @@ public class TileClustering implements ClusteringMethod {
             final Map<Pair<Integer, Integer>, Set<Integer>> clusters = Maps.newLinkedHashMap();
             for (int pid: v1._2.getObjects()) {
                 final Point p = v1._2.getPoint(pid);
-                final int lat = (int) (p.getLat() * 10000 / (11 * bin_lat));
-                final int lon = (int) (p.getLon() * 10000 / (15 * bin_lon));
+                final Integer lat = (int) p.getLat();
+                final Integer lon = (int) p.getLon();
                 clusters.compute(Pair.of(lat, lon), (key, value) -> {
                     Set<Integer> res = value;
-                    if (res == null) res = Sets.newHashSet();
+                    if (res == null) res = Sets.newLinkedHashSet();
                     res.add(pid);
                     return res;
                 });
@@ -67,18 +65,16 @@ public class TileClustering implements ClusteringMethod {
     private TileWrapper dwr;
     private int pars;
 
-    public TileClustering(int bin_lat, int bin_lon, int M, int pars) {
-        this.pars = pars;
-        this.bin_lat = bin_lat;
-        this.bin_lon = bin_lon;
-        this.M = M;
+    public TileClustering(int m, int partitions) {
+        this.M = m;
+        this.pars = partitions;
         dwr = new TileWrapper();
     }
 
     @Override
     public JavaRDD<SnapshotClusters> doClustering(JavaRDD<String> input) {
-        JavaPairRDD<Integer, SnapShot> TS_CLUSTERS = input.filter(tf).mapToPair(ssg).reduceByKey(ssc, pars);
+        JavaPairRDD<Integer, SnapShot> ts_clusters = input.filter(tf).mapToPair(ssg).reduceByKey(ssc, pars);
         // Key is the time sequence
-        return TS_CLUSTERS.map(dwr);
+        return ts_clusters.map(dwr);
     }
 }

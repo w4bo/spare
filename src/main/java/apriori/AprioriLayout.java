@@ -64,8 +64,8 @@ public class AprioriLayout implements AlgoLayout {
     }
 
     @Override
-    public void setInput(JavaRDD<SnapshotClusters> CLUSTERS) {
-        input = CLUSTERS;
+    public void setInput(JavaRDD<SnapshotClusters> clusters) {
+        input = clusters;
     }
 
     @Override

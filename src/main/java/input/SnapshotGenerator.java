@@ -19,16 +19,13 @@ import java.io.IOException;
  */
 public class SnapshotGenerator {
     private static final Logger logger = Logger.getLogger(MainApp.class);
-    private int epsilon;
-    private int minPoints;
-    private String hdfsInputPath;
-    private String hdfsOutputPath;
-    //Number of the input partition
-    private int hdfs_partition = 10;
-    /*Number of the output partition*/
-    private int snapshot_partitions = 10;
-    private int gcmpM;
-    int earth = 1;
+    private final int epsilon;
+    private final int minPoints;
+    private final String hdfsInputPath;
+    private final String hdfsOutputPath;
+    private final int snapshot_partitions;
+    private final int gcmpM;
+    private final int earth;
 
     /**
      * Default constructor with all the parameters.
@@ -53,25 +50,25 @@ public class SnapshotGenerator {
 
     /**
      * Execute the same operation of the MainApp class
+     *
      * @return
      */
-    public JavaRDD<SnapshotClusters> cluster(final JavaSparkContext context, final int bins, final boolean savehdfs) throws IOException {
-        logger.debug("Epsilon is " + epsilon);
-        logger.debug("M is " + gcmpM);
+    public JavaRDD<SnapshotClusters> cluster(final JavaSparkContext context, final boolean runOnCluster) throws IOException {
         // JavaSparkContext context = new JavaSparkContext(conf);
-        //JavaRDD<String> input = context.textFile(this.hdfsInputPath, hdfs_partitions);
-        JavaRDD<String> input = context.textFile(this.hdfsInputPath);
-        input = removeTSVHeader(input);
-        // ClusteringMethod cm = new BasicClustering(this.epsilon, this.minPoints, this.gcmpM, snapshot_partitions, earth);
-        ClusteringMethod cm = new TileClustering(bins, bins, this.gcmpM, snapshot_partitions);
-        JavaRDD<SnapshotClusters> CLUSTERS = cm.doClustering(input);
-        if (savehdfs) {
-            CLUSTERS.collect().forEach(logger::debug);
-            String hdfs_out = String.format(this.hdfsOutputPath + "/clusters-e%d-p%d", this.epsilon, this.minPoints);
-            this.checkOutputFolder(context, hdfsOutputPath);
-            CLUSTERS.saveAsObjectFile(hdfs_out);
+        // JavaRDD<String> input = context.textFile(hdfsInputPath, hdfs_partitions);
+        final JavaRDD<String> input = removeTSVHeader(context.textFile(hdfsInputPath));
+        // ClusteringMethod cm = new BasicClustering(epsilon, minPoints, gcmpM, snapshot_partitions, earth);
+        final ClusteringMethod cm = new TileClustering(gcmpM, snapshot_partitions);
+        final JavaRDD<SnapshotClusters> clusters = cm.doClustering(input);
+        if (runOnCluster) {
+            // final String hdfs_out = String.format(hdfsOutputPath + "/clusters", epsilon, minPoints);
+            final String hdfs_out = hdfsOutputPath + "/clusters";
+            checkOutputFolder(context, hdfsOutputPath);
+            clusters.saveAsObjectFile(hdfs_out);
+            return null;
+        } else {
+            return clusters;
         }
-        return CLUSTERS.cache();
     }
 
     /**
