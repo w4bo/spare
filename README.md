@@ -75,6 +75,8 @@ where:
    * `--debug=OFF` activate or disable _Spark_ logs
 
 
+
+
 spark-submit --class it.unibo.tip.main.Main \
     build/libs/SPARE-all.jar \
     --input=/user/mfrancia/spare/input/flock2.tsv \
@@ -83,6 +85,24 @@ spark-submit --class it.unibo.tip.main.Main \
     --k=3 \
     --l=3 \
     --g=1 \
+    --executors=10 \
+    --cores=3 \
+    --ram=8g
+
+sed 's/[\t]/,/g'  > /home/yourfile
+
+hive -e 'set hive.cli.print.header=true; use ctm; select userid, latitude, longitude, time_bucket from tmp_transactiontable__tbl_oldenburg_standard__lmt_1000000__size_1000__sup_20__bins_20__ts_absolute__bint_5__unitt_1' > oldenburg_standard__lmt_1000000__size_1000__sup_20__bins_20__ts_absolute__bint_5.tsv
+
+hdfs dfs -put oldenburg_standard__lmt_1000000__size_1000__sup_20__bins_20__ts_absolute__bint_5.tsv /user/mfrancia/spare/input
+
+spark-submit --class it.unibo.tip.main.Main \
+    build/libs/SPARE-all.jar \
+    --input=/user/mfrancia/spare/input/oldenburg_standard__lmt_1000000__size_1000__sup_20__bins_20__ts_absolute__bint_5.tsv \
+    --output=/user/mfrancia/spare/input/output/ \
+    --m=1000 \
+    --k=20 \
+    --l=1 \
+    --g=10000 \
     --executors=10 \
     --cores=3 \
     --ram=8g
