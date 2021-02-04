@@ -27,7 +27,7 @@ public class TileClustering implements ClusteringMethod {
         @Override
         public SnapshotClusters call(Tuple2<Integer, SnapShot> v1) throws Exception {
             final long time_start = System.currentTimeMillis();
-
+            final int timestamp = v1._1;
             final Map<Pair<Double, Double>, Set<Integer>> clusters = Maps.newLinkedHashMap();
             for (int pid: v1._2.getObjects()) {
                 final Point p = v1._2.getPoint(pid);
@@ -52,7 +52,7 @@ public class TileClustering implements ClusteringMethod {
                 }
             }
             long time_end = System.currentTimeMillis();
-            System.out.println("Objects to be clustered: " + v1._2.getObjects().size() + "  " + (time_end - time_start) + " ms" + "\t" + result.getClusterSize());
+            System.out.println("Timestamp: " + timestamp + ". Objects to be clustered: " + v1._2.getObjects().size() + "  " + (time_end - time_start) + " ms" + "\t" + result.getClusterSize());
             return result;
         }
     }
@@ -76,7 +76,6 @@ public class TileClustering implements ClusteringMethod {
     public JavaRDD<SnapshotClusters> doClustering(JavaRDD<String> input) {
         JavaPairRDD<Integer, SnapShot> TS_CLUSTERS = input.filter(tf).mapToPair(ssg).reduceByKey(ssc, pars);
         // Key is the time sequence
-        JavaRDD<SnapshotClusters> CLUSTERS = TS_CLUSTERS.map(dwr);
-        return CLUSTERS;
+        return TS_CLUSTERS.map(dwr);
     }
 }

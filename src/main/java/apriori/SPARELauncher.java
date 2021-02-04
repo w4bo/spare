@@ -64,12 +64,12 @@ public class SPARELauncher implements Serializable {
     /**
      * Launch and execute the SPARE algorithm.
      */
-    public JavaRDD<IntSet> executeSpare(final JavaSparkContext context) throws IOException {
+    public JavaRDD<IntSet> executeSpare(final JavaSparkContext context, final JavaRDD<SnapshotClusters> javardd) throws IOException {
         // .set("spark.executor.instances", "4")
         // .set("spark.executor.cores", "5");
         // JavaSparkContext context = new JavaSparkContext(conf);
         //Load input data directly from HDFS and split into the desired number of cluster.
-        JavaRDD<SnapshotClusters> CLUSTERS = context.objectFile(this.hdfsInputPath, this.input_partition);
+        JavaRDD<SnapshotClusters> CLUSTERS = javardd == null? context.objectFile(this.hdfsInputPath, this.input_partition) : javardd;
 
         if (CLUSTERS.collect().size() == 0) {
             System.out.println("No cluster is found, skipping...");
@@ -92,7 +92,9 @@ public class SPARELauncher implements Serializable {
         System.out.println("############### Results!!!");
         System.out.println(hdfsOutputPath);
         List<IntSet> grounds = output.collect();
-        output.filter(new DuplicateClusterFilter(grounds)).saveAsTextFile(hdfsOutputPath);
+        if (javardd == null) {
+            output.filter(new DuplicateClusterFilter(grounds)).saveAsTextFile(hdfsOutputPath);
+        }
         output.filter(new DuplicateClusterFilter(grounds)).collect().forEach(System.out::println);
         return output;
     }

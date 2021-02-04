@@ -20,8 +20,9 @@ import java.util.List
 object ClusteringAndSPAREMain {
 
     def execute(dataset: String, outputdir: String,
-                k: Int, l: Int, m: Int, g: Int, eps: Int = -1, minpts: Int = -1,
-                exec: Int = 1, ram: String = "1g", cores: Int = 1, part: Int = 10, earth: Int = 1, master: String = "local[1]"): JavaRDD[IntSet] = {
+                k: Int, l: Int, m: Int, g: Int, bins: Int = 10,
+                eps: Int = -1, minpts: Int = -1,
+                exec: Int = 1, ram: String = "1g", cores: Int = 1, part: Int = 10, earth: Int = 1, master: String = "local[1]"): util.List[IntSet] = {
         val clusterOutputPath = outputdir + "/clusters/"
         val snapshotInputPath = s"$clusterOutputPath/clusters-e${eps}-p${minpts}"
         val clusteringName = "DBSCAN-E=" + eps + "-P=" + minpts
@@ -38,9 +39,9 @@ object ClusteringAndSPAREMain {
         val jsc = new JavaSparkContext(spark.sparkContext)
         val timer = Timer()
         val snapshotGenerator = new SnapshotGenerator(eps, minpts, dataset, clusterOutputPath, part, m, earth)
-        snapshotGenerator.cluster(jsc)
+        val clusters = snapshotGenerator.cluster(jsc, bins, false)
         val spareLauncher = new SPARELauncher(snapshotInputPath, outputdir, m, k, l, g, part)
-        val output = spareLauncher executeSpare (jsc)
+        val output = spareLauncher executeSpare (jsc, clusters)
         println(s"Elapsed seconds: ${timer.getTimeInSeconds()}")
         val timeName = s"logs/time_" + outputdir.replace("/", "_")
         if (output != null) {
@@ -48,7 +49,7 @@ object ClusteringAndSPAREMain {
         } else {
             writeTimeOnFile(timeName, Long.MaxValue)
         }
-        output
+        output.collect()
     }
 
     def main(args: Array[String]): Unit = {
@@ -66,6 +67,7 @@ object ClusteringAndSPAREMain {
             conf.gcmp_l(),
             conf.gcmp_m(),
             conf.gcmp_g(),
+            conf.bins(),
             conf.epsilon(),
             conf.min_points(),
             conf.numexecutors(),
@@ -103,6 +105,7 @@ class Conf(arguments: Seq[String]) extends ScallopConf(arguments) {
     val gcmp_l = opt[Int](required = true)
     val gcmp_g = opt[Int](required = true)
     val input_partitions = opt[Int]()
+    val bins = opt[Int]()
     val numexecutors = opt[Int]()
     val numcores = opt[Int]()
     val executormemory = opt[String]()

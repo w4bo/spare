@@ -1,13 +1,10 @@
 package input;
 
-import cluster.BasicClustering;
 import cluster.ClusteringMethod;
 import it.unibo.tip.main.TileClustering;
 import model.SnapshotClusters;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.spark.SparkConf;
-import org.apache.spark.SparkContext;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
@@ -54,8 +51,9 @@ public class SnapshotGenerator {
 
     /**
      * Execute the same operation of the MainApp class
+     * @return
      */
-    public void cluster(final JavaSparkContext context) throws IOException {
+    public JavaRDD<SnapshotClusters> cluster(final JavaSparkContext context, final int bins, final boolean savehdfs) throws IOException {
         System.out.println("Epsilon is " + epsilon);
         System.out.println("M is " + gcmpM);
         // JavaSparkContext context = new JavaSparkContext(conf);
@@ -63,12 +61,15 @@ public class SnapshotGenerator {
         JavaRDD<String> input = context.textFile(this.hdfsInputPath);
         input = removeTSVHeader(input);
         // ClusteringMethod cm = new BasicClustering(this.epsilon, this.minPoints, this.gcmpM, snapshot_partitions, earth);
-        ClusteringMethod cm = new TileClustering(10, 10, this.gcmpM, snapshot_partitions);
+        ClusteringMethod cm = new TileClustering(bins, bins, this.gcmpM, snapshot_partitions);
         JavaRDD<SnapshotClusters> CLUSTERS = cm.doClustering(input);
-        CLUSTERS.collect().forEach(System.out::println);
-        String hdfs_out = String.format(this.hdfsOutputPath + "/clusters-e%d-p%d", this.epsilon, this.minPoints);
-        this.checkOutputFolder(context, hdfsOutputPath);
-        CLUSTERS.saveAsObjectFile(hdfs_out);
+        if (savehdfs) {
+            CLUSTERS.collect().forEach(System.out::println);
+            String hdfs_out = String.format(this.hdfsOutputPath + "/clusters-e%d-p%d", this.epsilon, this.minPoints);
+            this.checkOutputFolder(context, hdfsOutputPath);
+            CLUSTERS.saveAsObjectFile(hdfs_out);
+        }
+        return CLUSTERS;
     }
 
     /**
