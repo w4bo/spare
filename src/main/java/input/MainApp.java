@@ -21,7 +21,7 @@ import conf.AppProperties;
  *
  */
 public class MainApp {
-    
+	private static final Logger logger = Logger.getLogger(apriori.MainApp.class);
     public static void main(String[] args) {
 	int hdfs_partitions = 87;
 	int eps = 15, minpt = 10 ;
@@ -30,7 +30,7 @@ public class MainApp {
 	int earth = 0;
 	if(args.length > 0) {
 	    for(String arg : args) {
-		System.out.println(arg);
+		logger.debug(arg);
 		if(arg.startsWith("h=")|| arg.startsWith("H=")) {
 		    hdfs_partitions = Integer.parseInt(arg.split("=")[1]);
 		} else if(arg.startsWith("e=")|| arg.startsWith("E=")) {
@@ -44,11 +44,11 @@ public class MainApp {
 		}
 	    }
 	} else {
-	    System.out.println("No commandline arguments found. Using default values instead");
-	    System.out.println("Usage: .bin/spark-submit --class input.MainApp " +
+	    logger.debug("No commandline arguments found. Using default values instead");
+	    logger.debug("Usage: .bin/spark-submit --class input.MainApp " +
 	    		"~/TrajectoryMining/TrajectoryMining-0.0.1-SNAPSHOT-jar-with-dependencies.jar " +
 	    		" e=15 p=10 h=87 s=174 r=1");
-	    System.out.println("Missing values are replaced by defaults!");
+	    logger.debug("Missing values are replaced by defaults!");
 	    System.exit(-1);
 	}
 	String hdfs_input = AppProperties.getProperty("hdfs_input");

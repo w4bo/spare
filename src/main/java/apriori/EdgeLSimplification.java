@@ -5,6 +5,7 @@ import java.util.Arrays;
 import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
 import it.unimi.dsi.fastutil.ints.IntSortedSet;
 
+import org.apache.log4j.Logger;
 import org.apache.spark.api.java.function.Function;
 
 /**
@@ -14,6 +15,7 @@ import org.apache.spark.api.java.function.Function;
  *
  */
 public class EdgeLSimplification implements Function<IntSortedSet, IntSortedSet> {
+	private static final Logger logger = Logger.getLogger(EdgeLSimplification.class);
     private static final long serialVersionUID = -8205177914905770903L;
 
     private int K, L, G;
@@ -57,7 +59,7 @@ public class EdgeLSimplification implements Function<IntSortedSet, IntSortedSet>
 	
 	//at this moment, the edge is L-valid, we then remove the
 	//L-G-L anomalies
-//	System.out.println(v1);
+//	logger.debug(v1);
 	value = v1.toArray(new int[v1.size()]);
 	int current_sum = 1;
 	con_start = 0;
@@ -87,10 +89,10 @@ public class EdgeLSimplification implements Function<IntSortedSet, IntSortedSet>
 	IntSortedSet r1 = new IntRBTreeSet();
 	r1.addAll(Arrays.asList(1,2,3,5,6,7,8, 21,22,23,24,26,27,28,29));
 	EdgeLSimplification esf = new EdgeLSimplification(4,3,3);
-	System.out.println(esf.call(r1));
+	logger.debug(esf.call(r1));
 	IntSortedSet r2 = new IntRBTreeSet();
 	r2.addAll(Arrays.asList(0));
 	EdgeLSimplification esf2 = new EdgeLSimplification(1,1,Integer.MAX_VALUE);
-	System.out.println(esf2.call(r2));
+	logger.debug(esf2.call(r2));
     }
 }

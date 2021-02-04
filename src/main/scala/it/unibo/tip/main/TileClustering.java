@@ -1,5 +1,6 @@
 package it.unibo.tip.main;
 
+import apriori.MainApp;
 import cluster.*;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -8,6 +9,7 @@ import model.SimpleCluster;
 import model.SnapShot;
 import model.SnapshotClusters;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.log4j.Logger;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.Function;
@@ -15,9 +17,10 @@ import scala.Tuple2;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 public class TileClustering implements ClusteringMethod {
-
+    private static final Logger logger = Logger.getLogger(TileClustering.class);
     private final int M;
     private final int bin_lat;
     private final int bin_lon;
@@ -28,31 +31,31 @@ public class TileClustering implements ClusteringMethod {
         public SnapshotClusters call(Tuple2<Integer, SnapShot> v1) throws Exception {
             final long time_start = System.currentTimeMillis();
             final int timestamp = v1._1;
-            final Map<Pair<Double, Double>, Set<Integer>> clusters = Maps.newLinkedHashMap();
+            final Map<Pair<Integer, Integer>, Set<Integer>> clusters = Maps.newLinkedHashMap();
             for (int pid: v1._2.getObjects()) {
                 final Point p = v1._2.getPoint(pid);
-                final double lat = Math.round(p.getLat() / (11 * bin_lat)) * (11 * bin_lat);
-                final double lon = Math.round(p.getLon() / (15 * bin_lon)) * (15 * bin_lon);
+                final int lat = (int) (p.getLat() * 10000 / (11 * bin_lat));
+                final int lon = (int) (p.getLon() * 10000 / (15 * bin_lon));
                 clusters.compute(Pair.of(lat, lon), (key, value) -> {
                     Set<Integer> res = value;
-                    if (res == null) res = Sets.newHashSet(pid);
-                    else res.add(pid);
+                    if (res == null) res = Sets.newHashSet();
+                    res.add(pid);
                     return res;
                 });
             }
 
-            int idx = 1;
             SnapshotClusters result = new SnapshotClusters(v1._1);
-            for (Map.Entry<Pair<Double, Double>, Set<Integer>> cluster : clusters.entrySet()) {
+            for (Map.Entry<Pair<Integer, Integer>, Set<Integer>> cluster : clusters.entrySet()) {
                 if (cluster.getValue().size() >= M) {
                     SimpleCluster sc = new SimpleCluster();
                     sc.addObjects(cluster.getValue());
-                    sc.setID("c" + idx++);
+                    sc.setID(UUID.randomUUID().toString());
                     result.addCluster(sc);
+                    logger.info("Timestamp: " + timestamp + ", c: " + sc);
                 }
             }
             long time_end = System.currentTimeMillis();
-            System.out.println("Timestamp: " + timestamp + ". Objects to be clustered: " + v1._2.getObjects().size() + "  " + (time_end - time_start) + " ms" + "\t" + result.getClusterSize());
+            logger.info("Timestamp: " + timestamp + ", Objects: " + v1._2.getObjects().size() + ", Clusters:  " + result.getClusterSize() + ", Time (ms): " + (time_end - time_start));
             return result;
         }
     }

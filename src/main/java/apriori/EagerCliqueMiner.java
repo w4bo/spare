@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.apache.log4j.Logger;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import scala.Tuple2;
 import java.util.Iterator;
@@ -19,9 +20,8 @@ import java.util.Iterator;
  * @author a0048267
  * 
  */
-public class EagerCliqueMiner
-	implements
-	FlatMapFunction<Tuple2<Integer, Iterable<Tuple2<Integer, IntSortedSet>>>, IntSet> {
+public class EagerCliqueMiner implements FlatMapFunction<Tuple2<Integer, Iterable<Tuple2<Integer, IntSortedSet>>>, IntSet> {
+	private static final Logger logger = Logger.getLogger(EagerCliqueMiner.class);
     private static final long serialVersionUID = 8224251546525517682L;
     // L and G are used for later prunings
     private final int K, M, L, G;
@@ -47,7 +47,7 @@ public class EagerCliqueMiner
 	    tmp.next();
 //	    Tuple2<Integer, IntSortedSet> tuple = tmp.next();
 	    // print out input for debugging purpose
-//	    System.out.println(tuple._1 + "\t" + tuple._2);
+//	    logger.debug(tuple._1 + "\t" + tuple._2);
 	}
 	System.out.printf("Edges for %d is %d\n", self, count);
 	
@@ -61,7 +61,7 @@ public class EagerCliqueMiner
 	ArrayList<IntSet> output = new ArrayList<>();
 	if(count < M - 1) {
 	    //no need to check any more
-	    System.out.println("Directly terminates");
+	    logger.debug("Directly terminates");
 	    return output.iterator();
 	}
 	ArrayList<IntSet> candidate;
@@ -75,7 +75,7 @@ public class EagerCliqueMiner
 	    ground.add(cluster);
 	}
 	t_end = System.currentTimeMillis();
-	System.out.println("Initialization: " + (t_end - t_start) + " ms");
+	logger.debug("Initialization: " + (t_end - t_start) + " ms");
 	candidate = ground;
 	int level = 1; // at each level, cand \in candidate will have size level
 		       // +1;
@@ -130,7 +130,7 @@ public class EagerCliqueMiner
 		}
 		t_end = System.currentTimeMillis();
 		level = level * 2;
-		System.out.println("[" + v1._1 + "] Object-Grow to level: "
+		logger.debug("[" + v1._1 + "] Object-Grow to level: "
 			+ level + ", " + (t_end - t_start) + " ms  cand_size:"
 			+ nextLevel.size());
 	    } else {
@@ -178,7 +178,7 @@ public class EagerCliqueMiner
 		}
 		t_end = System.currentTimeMillis();
 		level++;
-		System.out.println("[" + v1._1 + "] Object-Grow to level: "
+		logger.debug("[" + v1._1 + "] Object-Grow to level: "
 			+ level + ", " + (t_end - t_start) + " ms  cand_size:"
 			+ nextLevel.size());
 	    }
@@ -208,7 +208,7 @@ public class EagerCliqueMiner
 		    if (!early_flag) {
 			if (eagerset.size() < M) { // no patterns with size M
 						   // can be found
-			    System.out.println("Closure check directly terminates.");
+			    logger.debug("Closure check directly terminates.");
 			    break;
 			}
 			eagerstamps = simplifier.call(eagerstamps);
@@ -227,7 +227,7 @@ public class EagerCliqueMiner
 		}
 	    }
 	}
-	System.out.println("Finished");
+	logger.debug("Finished");
 	return output.iterator();
     }
 

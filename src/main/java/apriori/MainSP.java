@@ -21,6 +21,7 @@ import conf.AppProperties;
  * I suppose this does the exact same things but it samples the data.
  */
 public class MainSP {
+	private static final Logger logger = Logger.getLogger(MainApp.class);
     public static void main(String[] args) {
 	int K = 40, L = 10, M = 10, G = 3;
 	double T = 1.0;
@@ -29,7 +30,7 @@ public class MainSP {
 	
 	if(args.length > 0) {
 	    for(String arg : args) {
-		System.out.println(arg);
+		logger.debug(arg);
 		if(arg.startsWith("k=") || arg.startsWith("K=")) {
 		    K = Integer.parseInt(arg.split("=")[1]);
 		} else if(arg.startsWith("l=")|| arg.startsWith("L=")) {
@@ -47,10 +48,10 @@ public class MainSP {
 		}
 	    }
 	} else {
-	    System.out.println("No commandline arguments found. Using default values instead");
-	    System.out.println("Usage: .bin/spark-submit --class apriori.MainApp ~/TrajectoryMining/TrajectoryMining-0.0.1-SNAPSHOT-jar-with-dependencies.jar " +
+	    logger.debug("No commandline arguments found. Using default values instead");
+	    logger.debug("Usage: .bin/spark-submit --class apriori.MainApp ~/TrajectoryMining/TrajectoryMining-0.0.1-SNAPSHOT-jar-with-dependencies.jar " +
 	    		"k=40 l=10 g=3 h=195 e=15 p=10 c=115 s=115");
-	    System.out.println("Missing values are replaced by defaults!");
+	    logger.debug("Missing values are replaced by defaults!");
 	    System.exit(-1);
 	}
 	
@@ -85,7 +86,7 @@ public class MainSP {
 	List<IntSet> grounds = output.collect();
 	List<IntSet> duplicate_removed = output.filter(new DuplicateClusterFilter(grounds)).collect();
 	for(IntSet each_output : duplicate_removed) {
-	    System.out.println(each_output);
+	    logger.debug(each_output);
 	}
 	context.close();
     }

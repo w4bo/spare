@@ -1,10 +1,12 @@
 package input;
 
+import apriori.MainApp;
 import cluster.ClusteringMethod;
 import it.unibo.tip.main.TileClustering;
 import model.SnapshotClusters;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.log4j.Logger;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
@@ -16,7 +18,7 @@ import java.io.IOException;
  * the snapshots from the clusters
  */
 public class SnapshotGenerator {
-
+    private static final Logger logger = Logger.getLogger(MainApp.class);
     private int epsilon;
     private int minPoints;
     private String hdfsInputPath;
@@ -54,8 +56,8 @@ public class SnapshotGenerator {
      * @return
      */
     public JavaRDD<SnapshotClusters> cluster(final JavaSparkContext context, final int bins, final boolean savehdfs) throws IOException {
-        System.out.println("Epsilon is " + epsilon);
-        System.out.println("M is " + gcmpM);
+        logger.debug("Epsilon is " + epsilon);
+        logger.debug("M is " + gcmpM);
         // JavaSparkContext context = new JavaSparkContext(conf);
         //JavaRDD<String> input = context.textFile(this.hdfsInputPath, hdfs_partitions);
         JavaRDD<String> input = context.textFile(this.hdfsInputPath);
@@ -64,12 +66,12 @@ public class SnapshotGenerator {
         ClusteringMethod cm = new TileClustering(bins, bins, this.gcmpM, snapshot_partitions);
         JavaRDD<SnapshotClusters> CLUSTERS = cm.doClustering(input);
         if (savehdfs) {
-            CLUSTERS.collect().forEach(System.out::println);
+            CLUSTERS.collect().forEach(logger::debug);
             String hdfs_out = String.format(this.hdfsOutputPath + "/clusters-e%d-p%d", this.epsilon, this.minPoints);
             this.checkOutputFolder(context, hdfsOutputPath);
             CLUSTERS.saveAsObjectFile(hdfs_out);
         }
-        return CLUSTERS;
+        return CLUSTERS.cache();
     }
 
     /**
@@ -85,7 +87,7 @@ public class SnapshotGenerator {
 
     private JavaRDD<String> removeTSVHeader(final JavaRDD<String> inputRDD) {
         String header = inputRDD.first();
-        System.out.println("Header is " + header);
+        logger.debug("Header is " + header);
         return inputRDD.filter(row -> !row.equals(header));
     }
 }

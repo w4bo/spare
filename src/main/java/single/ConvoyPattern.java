@@ -1,5 +1,6 @@
 package single;
 
+import apriori.MainApp;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 
@@ -13,12 +14,14 @@ import org.apache.commons.lang3.tuple.Pair;
 import model.SimpleCluster;
 import model.SnapShot;
 import model.SnapshotClusters;
+import org.apache.log4j.Logger;
 
 /**
  * Using simple linesweep for convoy pattern detection
  * @author a0048267
  */
 public class ConvoyPattern implements PatternMiner {
+	private static final Logger logger = Logger.getLogger(MainApp.class);
     int e,p, m,k;
     ArrayList<SnapShot> input;
     public ConvoyPattern() {
@@ -38,11 +41,11 @@ public class ConvoyPattern implements PatternMiner {
 		for(SimpleCluster sc : dbscan.cluster()) {
 		    sclusters.addCluster(sc);
 		}
-//		System.out.println(sclusters);
+//		logger.debug(sclusters);
 		clusters_snapshots.add(sclusters);
 	    }
 	    long time_end = System.currentTimeMillis();
-	    System.out.println("[CONVOY]-DBSCAN: " + (time_end-time_start)+ " ms");
+	    logger.debug("[CONVOY]-DBSCAN: " + (time_end-time_start)+ " ms");
 	    
 	    time_start = System.currentTimeMillis();
 	    
@@ -114,8 +117,8 @@ public class ConvoyPattern implements PatternMiner {
 		}
 	    }
 	    time_end = System.currentTimeMillis();
-	    System.out.println("[CONVOY]-Mining: " + (time_end-time_start)+ " ms" + "\t Patterns:" + patterns.size());
-		System.out.println("[CONVOY]-Results: " + patterns);
+	    logger.debug("[CONVOY]-Mining: " + (time_end-time_start)+ " ms" + "\t Patterns:" + patterns.size());
+		logger.debug("[CONVOY]-Results: " + patterns);
 	}
     }
 
@@ -125,7 +128,7 @@ public class ConvoyPattern implements PatternMiner {
 	p = data[1];
 	m = data[2];
 	k = data[3];
-	System.out.println("[CONVOY]-Parameters: " + "e="+e+"\tp="+p+"\tm="+m+"\tk="+k);
+	logger.debug("[CONVOY]-Parameters: " + "e="+e+"\tp="+p+"\tm="+m+"\tk="+k);
     }
 
     @Override

@@ -17,6 +17,7 @@ import model.SelfAdjustPattern;
 import model.SnapshotClusters;
 import model.SimpleCluster;
 
+import org.apache.log4j.Logger;
 import org.apache.spark.api.java.function.Function;
 
 import util.SetComp;
@@ -27,6 +28,7 @@ import common.SerializableComparator;
 
 public class LocalMiner implements
 		Function<Iterable<SnapshotClusters>, ArrayList<IntSet>> {
+	private static final Logger logger = Logger.getLogger(LocalMiner.class);
 	private static final long serialVersionUID = 416636556315652980L;
 	private int K, M, L, G;
 
@@ -69,15 +71,15 @@ public class LocalMiner implements
 			}
 		}
 		if (sorted) {
-			System.out.println("Input is sorted! ");
+			logger.debug("Input is sorted! ");
 		} else {
-			System.out.println("[ERROR] Input is not sorted!!");
+			logger.debug("[ERROR] Input is not sorted!!");
 		}
 		// TODO:: delete till here
-		// System.out.println("input:"+input);
+		// logger.debug("input:"+input);
 		long start = System.currentTimeMillis();
 		ArrayList<IntSet> mined_clusters = mining();
-		System.out.println(total_clusters + " clusters in " + input.size()
+		logger.debug(total_clusters + " clusters in " + input.size()
 				+ " timestamps, takes " + (System.currentTimeMillis() - start)
 				+ " ms");
 		return mined_clusters;
@@ -106,7 +108,7 @@ public class LocalMiner implements
 			}
 		}
 		// t_end = System.currentTimeMillis();
-		// System.out.println("Point 1:" + (t_end-t_start) +" ms");
+		// logger.debug("Point 1:" + (t_end-t_start) +" ms");
 		// ArrayList<SimpleCluster> initial_snapshot =
 		// input.get(0).getClusters();
 		// for (SimpleCluster cluster : initial_snapshot) {
@@ -203,9 +205,9 @@ public class LocalMiner implements
 			}
 		}
 		// t_end = System.currentTimeMillis();
-		// System.out.println("Point 2:" + (t_end-t_start) + " ms" + "," + p2);
+		// logger.debug("Point 2:" + (t_end-t_start) + " ms" + "," + p2);
 		// for(HashSet<Integer> cluster : result) {
-		// System.out.println(cluster);
+		// logger.debug(cluster);
 		// }
 		return result;
 	}
@@ -277,14 +279,14 @@ public class LocalMiner implements
 		input.add(sp10);
 
 		for (SnapshotClusters in : input) {
-			System.out.println(in);
+			logger.debug(in);
 		}
 
 		ArrayList<IntSet> result = lm.call(input);
 
 		int index = 0;
 		for (IntSet cluster : result) {
-			System.out.println((index++) + "\t" + cluster);
+			logger.debug((index++) + "\t" + cluster);
 		}
 	}
 

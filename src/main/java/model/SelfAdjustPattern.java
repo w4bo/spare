@@ -1,7 +1,9 @@
 package model;
 
+import apriori.MainApp;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +18,7 @@ import java.util.HashSet;
  * 
  */
 public class SelfAdjustPattern {
+	private static final Logger logger = Logger.getLogger(SelfAdjustPattern.class);
     private int M, L, K, G;
     private IntSet objects;
     private ArrayList<Integer> tstamps;
@@ -160,8 +163,7 @@ public class SelfAdjustPattern {
 	// p.addTemporals(temporls);
 	int[] temporals = new int[] { 0, 2, 3, 4, 7, 8, 9, 11, 13, 14, 15 };
 	for (int i : temporals) {
-	    System.out.print(p.growTemporal(i) + "\t");
-	    System.out.println(p);
+	    logger.debug(p.growTemporal(i) + "\t" + p);
 	}
     }
 

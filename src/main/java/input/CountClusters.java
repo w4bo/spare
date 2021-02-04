@@ -1,5 +1,6 @@
 package input;
 
+import apriori.MainApp;
 import model.SimpleCluster;
 import model.SnapshotClusters;
 
@@ -16,11 +17,12 @@ import scala.Tuple3;
 import conf.AppProperties;
 
 public class CountClusters {
+	private static final Logger logger = Logger.getLogger(MainApp.class);
     public static void main(String[] args) {
 	int snapshot_partitions = 87;
 	if (args.length > 0) {
 	    for (String arg : args) {
-		System.out.println(arg);
+		logger.debug(arg);
 		if (arg.startsWith("h=") || arg.startsWith("H=")) {
 		} else if (arg.startsWith("s=") || arg.startsWith("S=")) {
 		    snapshot_partitions = Integer.parseInt(arg.split("=")[1]);

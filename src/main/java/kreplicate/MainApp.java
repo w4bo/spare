@@ -36,12 +36,13 @@ import conf.Constants;
  * 
  */
 public class MainApp {
+	private static final Logger logger = Logger.getLogger(apriori.MainApp.class);
     public static void main(String[] args) {
 	int K = 40, L = 10, M = 10, G = 3;
 	int ls_partition = 486;
 	if(args.length > 0) {
 	    for(String arg : args) {
-		System.out.println(arg);
+		logger.debug(arg);
 		if(arg.startsWith("k=") || arg.startsWith("K=")) {
 		    K = Integer.parseInt(arg.split("=")[1]);
 		} else if(arg.startsWith("l=")|| arg.startsWith("L=")) {
@@ -55,10 +56,10 @@ public class MainApp {
 		} 
 	    }
 	} else {
-	    System.out.println("No commandline arguments found. Using default values instead");
-	    System.out.println("Usage: .bin/spark-submit --class apriori.MainApp ~/TrajectoryMining/TrajectoryMining-0.0.1-SNAPSHOT-jar-with-dependencies.jar " +
+	    logger.debug("No commandline arguments found. Using default values instead");
+	    logger.debug("Usage: .bin/spark-submit --class apriori.MainApp ~/TrajectoryMining/TrajectoryMining-0.0.1-SNAPSHOT-jar-with-dependencies.jar " +
 	    		"k=40 l=10 g=3 h=195 e=15 p=10 c=115");
-	    System.out.println("Missing values are replaced by defaults!");
+	    logger.debug("Missing values are replaced by defaults!");
 	    System.exit(-1);
 	}
 	String hdfs_input = AppProperties.getProperty("hdfs_input");
@@ -93,7 +94,7 @@ public class MainApp {
 	for (Tuple2<Integer, ArrayList<IntSet>> r : rs) {
 	    if (r._2.size() != 0) {
 		for (IntSet cluster : r._2) {
-		    System.out.println(r._1 + "\t" + cluster);
+		    logger.debug(r._1 + "\t" + cluster);
 		}
 	    }
 	}

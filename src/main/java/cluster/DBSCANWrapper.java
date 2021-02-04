@@ -1,8 +1,10 @@
 package cluster;
 
+import apriori.MainApp;
 import model.SimpleCluster;
 import model.SnapShot;
 import model.SnapshotClusters;
+import org.apache.log4j.Logger;
 import org.apache.spark.api.java.function.Function;
 import scala.Tuple2;
 import util.DBSCANClustering;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
  * functional implementation and the inability of the guy who wrote this mess to understand Scala.
  */
 public class DBSCANWrapper implements Function<Tuple2<Integer, SnapShot>, SnapshotClusters> {
+    private static final Logger logger = Logger.getLogger(MainApp.class);
     private static final long serialVersionUID = 3562163124094087749L;
     private int eps, minPts;
     private int M;
@@ -43,7 +46,7 @@ public class DBSCANWrapper implements Function<Tuple2<Integer, SnapShot>, Snapsh
         }
         long time_end = System.currentTimeMillis();
         // remove when actual deploy
-        System.out.println("Objects to be clustered: "
+        logger.debug("Objects to be clustered: "
                 + v1._2.getObjects().size() + "  " + (time_end - time_start)
                 + " ms" + "\t" + result.getClusterSize());
         return result;
