@@ -1,7 +1,9 @@
 package it.unibo.tip.main;
 
-import apriori.MainApp;
-import cluster.*;
+import cluster.ClusteringMethod;
+import cluster.SnapshotCombinor;
+import cluster.SnapshotGenerator;
+import cluster.TupleFilter;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import model.Point;
@@ -21,7 +23,7 @@ import java.util.UUID;
 
 public class TileClustering implements ClusteringMethod {
     private static final Logger logger = Logger.getLogger(TileClustering.class);
-    private final int M;
+    private final int m;
 
     public class TileWrapper implements Function<Tuple2<Integer, SnapShot>, SnapshotClusters> {
 
@@ -44,7 +46,7 @@ public class TileClustering implements ClusteringMethod {
 
             SnapshotClusters result = new SnapshotClusters(v1._1);
             for (Map.Entry<Pair<Integer, Integer>, Set<Integer>> cluster : clusters.entrySet()) {
-                if (cluster.getValue().size() >= M) {
+                if (cluster.getValue().size() >= m) {
                     SimpleCluster sc = new SimpleCluster();
                     sc.addObjects(cluster.getValue());
                     sc.setID(UUID.randomUUID().toString());
@@ -53,6 +55,7 @@ public class TileClustering implements ClusteringMethod {
                 }
             }
             long time_end = System.currentTimeMillis();
+            System.out.println("Timestamp: " + timestamp + ", Objects: " + v1._2.getObjects().size() + ", Clusters:  " + result.getClusterSize() + ", Time (ms): " + (time_end - time_start));
             logger.info("Timestamp: " + timestamp + ", Objects: " + v1._2.getObjects().size() + ", Clusters:  " + result.getClusterSize() + ", Time (ms): " + (time_end - time_start));
             return result;
         }
@@ -63,18 +66,17 @@ public class TileClustering implements ClusteringMethod {
     private static final TupleFilter tf = new TupleFilter();
 
     private TileWrapper dwr;
-    private int pars;
+    private int partitions;
 
     public TileClustering(int m, int partitions) {
-        this.M = m;
-        this.pars = partitions;
-        dwr = new TileWrapper();
+        this.m = m;
+        this.partitions = partitions;
+        this.dwr = new TileWrapper();
     }
 
     @Override
     public JavaRDD<SnapshotClusters> doClustering(JavaRDD<String> input) {
-        JavaPairRDD<Integer, SnapShot> ts_clusters = input.filter(tf).mapToPair(ssg).reduceByKey(ssc, pars);
         // Key is the time sequence
-        return ts_clusters.map(dwr);
+        return input.filter(tf).mapToPair(ssg).reduceByKey(ssc, partitions).map(dwr);
     }
 }

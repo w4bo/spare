@@ -19,11 +19,11 @@ public class SPARELauncher implements Serializable {
     private static final Logger logger = Logger.getLogger(SPARELauncher.class);
     private final String clusterDir;
     private final String itemsetDir;
-    private final int input_partition;
-    private final int gcmpM;
-    private final int gcmpK;
-    private final int gcmpL;
-    private final int gcmpG;
+    private final int partitions;
+    private final int m;
+    private final int k;
+    private final int l;
+    private final int g;
 
     /**
      * Default constructor for the class.
@@ -39,11 +39,11 @@ public class SPARELauncher implements Serializable {
     public SPARELauncher(String clusterDir, String itemsetDir, int gcmpM, int gcmpK, int gcmpL, int gcmpG, int input_partition) {
         this.clusterDir = clusterDir;
         this.itemsetDir = itemsetDir;
-        this.gcmpM = gcmpM;
-        this.gcmpK = gcmpK;
-        this.gcmpL = gcmpL;
-        this.gcmpG = gcmpG;
-        this.input_partition = input_partition;
+        this.m = gcmpM;
+        this.k = gcmpK;
+        this.l = gcmpL;
+        this.g = gcmpG;
+        this.partitions = input_partition;
     }
 
     /**
@@ -54,8 +54,8 @@ public class SPARELauncher implements Serializable {
         // .set("spark.executor.cores", "5");
         // JavaSparkContext context = new JavaSparkContext(conf);
         // Load input data directly from HDFS and split into the desired number of cluster.
-        final JavaRDD<SnapshotClusters> clusters = prevClusters == null ? context.objectFile(clusterDir, input_partition) : prevClusters;
-        final AlgoLayout al = new AprioriLayout(gcmpK, gcmpM, gcmpL, gcmpG, input_partition);
+        final JavaRDD<SnapshotClusters> clusters = prevClusters == null ? context.objectFile(clusterDir, partitions) : prevClusters;
+        final AlgoLayout al = new AprioriLayout(k, m, l, g, partitions);
         al.setInput(clusters);
         JavaRDD<IntSet> output = al.runLogic().filter(v1 -> v1.size() > 0);
         checkOutputFolder(context, itemsetDir);

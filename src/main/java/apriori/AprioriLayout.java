@@ -1,6 +1,5 @@
 package apriori;
 
-import algo.LocalMiner;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.ints.IntSortedSet;
 
@@ -13,7 +12,6 @@ import scala.Tuple2;
 import java.util.Iterator;
 import java.util.Map;
 
-import static org.apache.spark.api.java.StorageLevels.DISK_ONLY;
 import static org.apache.spark.api.java.StorageLevels.MEMORY_AND_DISK;
 
 /**
@@ -24,7 +22,7 @@ public class AprioriLayout implements AlgoLayout {
     private static final Logger logger = Logger.getLogger(AprioriLayout.class);
     private static final long serialVersionUID = 1013697935052286484L;
     private JavaRDD<SnapshotClusters> input;
-    private final int K, L, M, G, clique_partitions;
+    private final int K, L, M, G, partitions;
     private final EdgeSegmentor edge_seg;
     private final EdgeReducer edge_reducer;
     private final EdgeFilter edge_filter;
@@ -44,7 +42,7 @@ public class AprioriLayout implements AlgoLayout {
         clique_miner = new CliqueMiner(K, M, L, G);
         // 	clique_miner = new EagerCliqueMiner(K,M,L,G);
         edge_simplifier = new EdgeLSimplification(K, L, G);
-        clique_partitions = pars;
+        partitions = pars;
     }
 
     @Override
@@ -54,39 +52,43 @@ public class AprioriLayout implements AlgoLayout {
 
     @Override
     public JavaRDD<IntSet> runLogic() {
-
         // Create G(t) for each snapshot t
-        JavaPairRDD<Tuple2<Integer, Integer>, IntSortedSet> stage1 = input.flatMapToPair(edge_seg); // .persist(MEMORY_AND_DISK)
+        final JavaPairRDD<Tuple2<Integer, Integer>, IntSortedSet> stage1 = input.flatMapToPair(edge_seg); // .persist(MEMORY_AND_DISK)
         // logger.debug("Sum of all the edges from every G(t) inside the system: " + stage1.count());
 
         // Build the GA of the whole dataset, merging intsets by key, so merge together two edges if they connect the
         // same two nodes(objects or trajectories, does not matter), so builds tuples in the form
-        JavaPairRDD<Tuple2<Integer, Integer>, IntSortedSet> stage2 = stage1.reduceByKey(edge_reducer); // .persist(MEMORY_AND_DISK)
+        final JavaPairRDD<Tuple2<Integer, Integer>, IntSortedSet> stage2 = stage1.reduceByKey(edge_reducer, partitions); // .persist(MEMORY_AND_DISK)
         // logger.debug("Condensed edges in connection graph:\t" + stage2.count());
 
-        JavaPairRDD<Tuple2<Integer, Integer>, IntSortedSet> stage3 = stage2
+        final JavaPairRDD<Tuple2<Integer, Integer>, IntSortedSet> stage3 = stage2
                 .mapValues(edge_simplifier) // L-semplification
-                .filter(edge_filter) // G-semplification
+                .filter(edge_filter); // G-semplification
                 //.cache(); //This should be modified
-                .persist(MEMORY_AND_DISK);
+                // .persist(MEMORY_AND_DISK);
         // logger.debug("2-long itemset with semplified time-sequence:\t" + stage3.count());
 
         // For each ObjectID(or TrajectoryID), create and group tuples on the key(TrajectoryID)
         // The output is in the form of (i, Array[(j, [t1,..,tn])])
-        JavaPairRDD<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> stage4 = stage3.mapToPair(edge_mapper).groupByKey(clique_partitions).cache();
-        Map<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> stage4result = stage4.collectAsMap();
-        logger.debug("Star size distribution:");
-        for (Map.Entry<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> entry : stage4result.entrySet()) {
-            Iterator<Tuple2<Integer, IntSortedSet>> itr = entry.getValue().iterator();
-            int count = 0;
-            while (itr.hasNext()) {
-                count++;
-                itr.next();
-            }
-            logger.debug(entry.getKey() + "\t" + count);
-        }
+        final JavaPairRDD<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> stage4 = stage3.mapToPair(edge_mapper).groupByKey(partitions);
+
+        // begin my comment
+        // final JavaPairRDD<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> stage4 = stage3.mapToPair(edge_mapper).groupByKey(partitions).persist(MEMORY_AND_DISK);
+        // final Map<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> stage4result = stage4.collectAsMap();
+        // logger.debug("Star size distribution:");
+        // for (Map.Entry<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> entry : stage4result.entrySet()) {
+        //     Iterator<Tuple2<Integer, IntSortedSet>> itr = entry.getValue().iterator();
+        //     int count = 0;
+        //     while (itr.hasNext()) {
+        //         count++;
+        //         itr.next();
+        //     }
+        //     logger.debug(entry.getKey() + "\t" + count);
+        // }
+        // end my comment
+
         // Apriori mining for each star
         // Change to store to cache
-        return stage4.flatMap(clique_miner).persist(MEMORY_AND_DISK);
+        return stage4.flatMap(clique_miner).persist(MEMORY_AND_DISK); //
     }
 }

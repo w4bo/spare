@@ -23,8 +23,8 @@ public class SnapshotGenerator {
     private final int minPoints;
     private final String hdfsInputPath;
     private final String hdfsOutputPath;
-    private final int snapshot_partitions;
-    private final int gcmpM;
+    private final int partitions;
+    private final int m;
     private final int earth;
 
     /**
@@ -43,8 +43,8 @@ public class SnapshotGenerator {
         this.minPoints = minPoints;
         this.hdfsInputPath = hdfsInputPath;
         this.hdfsOutputPath = hdfsOutputPath;
-        this.snapshot_partitions = snapshot_partitions;
-        this.gcmpM = gcmpM;
+        this.partitions = snapshot_partitions;
+        this.m = gcmpM;
         this.earth = earth;
     }
 
@@ -54,17 +54,14 @@ public class SnapshotGenerator {
      * @return
      */
     public JavaRDD<SnapshotClusters> cluster(final JavaSparkContext context, final boolean runOnCluster) throws IOException {
-        // JavaSparkContext context = new JavaSparkContext(conf);
         // JavaRDD<String> input = context.textFile(hdfsInputPath, hdfs_partitions);
-        final JavaRDD<String> input = removeTSVHeader(context.textFile(hdfsInputPath));
+        final JavaRDD<String> input = context.textFile(hdfsInputPath, partitions).filter(row -> !row.toLowerCase().contains("id"));
         // ClusteringMethod cm = new BasicClustering(epsilon, minPoints, gcmpM, snapshot_partitions, earth);
-        final ClusteringMethod cm = new TileClustering(gcmpM, snapshot_partitions);
+        final ClusteringMethod cm = new TileClustering(m, partitions);
         final JavaRDD<SnapshotClusters> clusters = cm.doClustering(input);
         if (runOnCluster) {
-            // final String hdfs_out = String.format(hdfsOutputPath + "/clusters", epsilon, minPoints);
-            final String hdfs_out = hdfsOutputPath;
             checkOutputFolder(context, hdfsOutputPath);
-            clusters.saveAsObjectFile(hdfs_out);
+            clusters.saveAsObjectFile(hdfsOutputPath);
             return null;
         } else {
             return clusters;
@@ -80,11 +77,5 @@ public class SnapshotGenerator {
         if (fileSystem.exists(outputPath)) {
             fileSystem.delete(outputPath, true);
         }
-    }
-
-    private JavaRDD<String> removeTSVHeader(final JavaRDD<String> inputRDD) {
-        String header = inputRDD.first();
-        logger.debug("Header is " + header);
-        return inputRDD.filter(row -> !row.equals(header));
     }
 }

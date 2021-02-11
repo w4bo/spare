@@ -1,19 +1,18 @@
 package it.unibo.tip.main
 
-import apriori.{DuplicateClusterFilter, SPARELauncher}
+import apriori.SPARELauncher
 import input.SnapshotGenerator
 import it.unibo.tip.timer.Timer
 import it.unimi.dsi.fastutil.ints.IntSet
+import org.apache.commons.io.FilenameUtils
 import org.apache.log4j.{Level, Logger}
-import org.apache.spark.api.java.{JavaRDD, JavaSparkContext}
+import org.apache.spark.api.java.JavaSparkContext
 import org.apache.spark.sql.SparkSession
 import org.rogach.scallop.ScallopConf
 
 import java.io.{BufferedWriter, File, FileWriter}
 import java.nio.file.{Files, Paths}
 import java.util
-import java.util.List
-import org.apache.commons.io.FilenameUtils
 class Main {}
 
 /**
@@ -37,16 +36,19 @@ object Main {
         .config("spark.executor.instances", exec)
         .config("spark.executor.cores", cores)
         .getOrCreate()
+    logger.info("Begin")
     val partitions = exec * cores * 3
     val timer = Timer() // init the timer
     val jsc = new JavaSparkContext(spark.sparkContext) // create the spark context
     val snapshotGenerator = new SnapshotGenerator(eps, minpts, input, clusterDir, partitions, m, earth)
     val runOnCluster = !master.startsWith("local")
     val clusters = snapshotGenerator.cluster(jsc, runOnCluster) // create the clusters (save to hdfs if not running on local)
+    logger.info("Done clustering")
     val spareLauncher = new SPARELauncher(clusterDir, itemsetDir, m, k, l, g, partitions)
     val output = spareLauncher executeSpare(jsc, clusters)
     val timeName = s"logs/time_" + outputdir.replace("/", "_")
     writeTimeOnFile(timeName, timer.getTimeInMillis())
+    logger.info("done")
     if (!runOnCluster) output.collect() else null
   }
 

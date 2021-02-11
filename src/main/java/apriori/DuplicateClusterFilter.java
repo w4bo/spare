@@ -7,7 +7,7 @@ import org.apache.spark.api.java.function.Function;
 import java.util.Collection;
 
 /**
- * Function to filter duplicate cluster(the pattern i suppose, but i'm not sure about it)
+ * Function to filter duplicate clusters (the patterns I suppose, but I'm not sure about it)
  */
 public class DuplicateClusterFilter implements Function<IntSet, Boolean> {
     private static final Logger logger = Logger.getLogger(DuplicateClusterFilter.class);
