@@ -45,6 +45,9 @@ class TestMain extends JUnitSuite {
         check(s"$path/swarm.tsv", Set(Set(1, 2, 3)), 3, 2, 1, Integer.MAX_VALUE)
     }
 
+//    @Test def testOldenburg(): Unit = {
+//        check(s"$path/join__oldenburg_standard_10000__1000__20__20__absolute__5.tsv", Set(Set(1, 2, 3)), 3, 2, 1, Integer.MAX_VALUE)
+//    }
 //    @Test def testPlatoon(): Unit = {
 //        check(s"$path/platoon.tsv", Set(Set(1, 2)), 4, 2, 2, Integer.MAX_VALUE)
 //    }

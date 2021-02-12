@@ -54,8 +54,17 @@ public class SnapshotGenerator {
      * @return
      */
     public JavaRDD<SnapshotClusters> cluster(final JavaSparkContext context, final boolean runOnCluster) throws IOException {
-        // JavaRDD<String> input = context.textFile(hdfsInputPath, hdfs_partitions);
         final JavaRDD<String> input = context.textFile(hdfsInputPath, partitions).filter(row -> !row.toLowerCase().contains("id"));
+        return cluster(input, context, runOnCluster);
+    }
+
+
+    /**
+     * Execute the same operation of the MainApp class
+     *
+     * @return
+     */
+    public JavaRDD<SnapshotClusters> cluster(final JavaRDD<String> input, final JavaSparkContext context, final boolean runOnCluster) throws IOException {
         // ClusteringMethod cm = new BasicClustering(epsilon, minPoints, gcmpM, snapshot_partitions, earth);
         final ClusteringMethod cm = new TileClustering(m, partitions);
         final JavaRDD<SnapshotClusters> clusters = cm.doClustering(input);

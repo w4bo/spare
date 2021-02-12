@@ -51,11 +51,10 @@ public class TileClustering implements ClusteringMethod {
                     sc.addObjects(cluster.getValue());
                     sc.setID(UUID.randomUUID().toString());
                     result.addCluster(sc);
-                    logger.info("Timestamp: " + timestamp + ", c: " + sc);
+                    // logger.info("Timestamp: " + timestamp + ", c: " + sc);
                 }
             }
             long time_end = System.currentTimeMillis();
-            System.out.println("Timestamp: " + timestamp + ", Objects: " + v1._2.getObjects().size() + ", Clusters:  " + result.getClusterSize() + ", Time (ms): " + (time_end - time_start));
             logger.info("Timestamp: " + timestamp + ", Objects: " + v1._2.getObjects().size() + ", Clusters:  " + result.getClusterSize() + ", Time (ms): " + (time_end - time_start));
             return result;
         }

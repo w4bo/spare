@@ -13,6 +13,7 @@ import org.rogach.scallop.ScallopConf
 import java.io.{BufferedWriter, File, FileWriter}
 import java.nio.file.{Files, Paths}
 import java.util
+
 class Main {}
 
 /**
@@ -21,7 +22,7 @@ class Main {}
 object Main {
   private val logger = Logger.getLogger(classOf[Main])
 
-  def execute(input: String, outputdir: String, m: Int, k: Int, l: Int, g: Int, eps: Int = -1, minpts: Int = -1, exec: Int = 1, ram: String = "1g", cores: Int = 1, earth: Int = 1, master: String = "yarn"): util.List[IntSet] = {
+  def execute(input: String, outputdir: String, m: Int, k: Int, l: Int, g: Int, eps: Int = -1, minpts: Int = -1, exec: Int = 1, ram: String = "1g", cores: Int = 1, earth: Int = 1, master: String = "yarn", inputTable: String = ""): util.List[IntSet] = {
     val config = s"${FilenameUtils.getBaseName(input)}-K_$k-L_$l-M_$m-G_$g"
     val clusterDir = outputdir + config + "/clusters"
     val itemsetDir = outputdir + config + "/itemsets"
@@ -35,6 +36,7 @@ object Main {
         .config("spark.executor.memory", ram)
         .config("spark.executor.instances", exec)
         .config("spark.executor.cores", cores)
+        .enableHiveSupport()
         .getOrCreate()
     logger.info("Begin")
     val partitions = exec * cores * 3
@@ -42,11 +44,23 @@ object Main {
     val jsc = new JavaSparkContext(spark.sparkContext) // create the spark context
     val snapshotGenerator = new SnapshotGenerator(eps, minpts, input, clusterDir, partitions, m, earth)
     val runOnCluster = !master.startsWith("local")
-    val clusters = snapshotGenerator.cluster(jsc, runOnCluster) // create the clusters (save to hdfs if not running on local)
+
+    val clusters =
+      if (inputTable.nonEmpty) {
+        snapshotGenerator.cluster(
+          spark
+            .sql(s"select itemid, latitude, longitude, time_bucket from $inputTable")
+            .rdd
+            .map(row => s"${row.get(0)}\t${row.get(1)}\t${row.get(2)}\t${row.get(3)}")
+            .toJavaRDD, jsc, runOnCluster)
+      } else {
+        snapshotGenerator.cluster(jsc, runOnCluster) // create the clusters (save to hdfs if not running on local)
+      }
+
     logger.info("Done clustering")
     val spareLauncher = new SPARELauncher(clusterDir, itemsetDir, m, k, l, g, partitions)
     val output = spareLauncher executeSpare(jsc, clusters)
-    val timeName = s"logs/time_" + outputdir.replace("/", "_")
+    val timeName = s"logs/time_" + config
     writeTimeOnFile(timeName, timer.getTimeInMillis())
     logger.info("done")
     if (!runOnCluster) output.collect() else null
@@ -55,7 +69,7 @@ object Main {
   def main(args: Array[String]): Unit = {
     val conf = new Conf(args)
     execute(
-      conf.input(),
+      conf.input.getOrElse(""),
       conf.output(),
       conf.m(),
       conf.k(),
@@ -67,7 +81,8 @@ object Main {
       conf.ram(),
       conf.cores(),
       conf.earth.getOrElse(-1),
-      conf.master.getOrElse("yarn")
+      conf.master.getOrElse("yarn"),
+      conf.inputtable.getOrElse("")
     )
   }
 
@@ -91,7 +106,8 @@ object Main {
  * @param arguments the programs arguments as an array of strings.
  */
 class Conf(arguments: Seq[String]) extends ScallopConf(arguments) {
-  val input = opt[String](required = true)
+  val input = opt[String]()
+  val inputtable = opt[String]()
   val output = opt[String](required = true)
   val m = opt[Int](required = true)
   val k = opt[Int](required = true)
