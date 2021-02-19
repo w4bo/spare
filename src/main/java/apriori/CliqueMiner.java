@@ -6,6 +6,7 @@ import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.ints.IntSortedSet;
 import org.apache.log4j.Logger;
 import org.apache.spark.api.java.function.FlatMapFunction;
+import org.apache.spark.util.LongAccumulator;
 import scala.Tuple2;
 
 import java.util.ArrayList;
@@ -24,15 +25,22 @@ public class CliqueMiner implements FlatMapFunction<Tuple2<Integer, Iterable<Tup
     private static final long serialVersionUID = 714635813712741661L;
 
     // L and G are used for later prunings
-    private final int K, M, L, G;
-    private EdgeLSimplification simplifier;
+    private final int K;
+    private final int M;
+    private final int G;
+    private final EdgeLSimplification simplifier;
+    private final LongAccumulator acc;
 
     public CliqueMiner(int k, int m, int l, int g) {
+        this(k, m, l, g, null);
+    }
+
+    public CliqueMiner(int k, int m, int l, int g, final LongAccumulator acc) {
         K = k;
         M = m;
-        L = l;
         G = g;
-        simplifier = new EdgeLSimplification(K, L, G);
+        simplifier = new EdgeLSimplification(K, l, G);
+        this.acc = acc;
     }
 
     private void printCliquerDebug(final String message, final int vertex) {
@@ -40,9 +48,7 @@ public class CliqueMiner implements FlatMapFunction<Tuple2<Integer, Iterable<Tup
     }
 
     @Override
-    public Iterator<IntSet> call(
-            Tuple2<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> starVertex)
-            throws Exception {
+    public Iterator<IntSet> call(Tuple2<Integer, Iterable<Tuple2<Integer, IntSortedSet>>> starVertex) throws Exception {
         Iterator<Tuple2<Integer, IntSortedSet>> starEdges = starVertex._2.iterator();
         int count = 0;
         while (starEdges.hasNext()) {
@@ -77,27 +83,19 @@ public class CliqueMiner implements FlatMapFunction<Tuple2<Integer, Iterable<Tup
         while (true) {
             t_start = System.currentTimeMillis();
             ArrayList<IntSet> nextLevel = new ArrayList<>();
-            HashSet<IntSet> duplicates = new HashSet<>(); // do
-            // not
-            // add
-            // duplicate
-            // objectset
-            // to
-            // the
-            // next
-            // level
+            HashSet<IntSet> duplicates = new HashSet<>(); // do not add duplicate objectset to the next level
             for (final IntSet candidateItemset : candidate) {
-
+                acc.add(1L);
                 boolean existValidSuperSet = false;
-
                 // for each candidate, generate all the possible combination tuples
                 for (final IntSet groundItemset : ground) {
+                    acc.add(1L);
                     if (candidateItemset.containsAll(groundItemset)) {
                         // a candidate should not join with its subset;
                         continue;
                     }
                     printCliquerDebug("Trying to merge " + candidateItemset + " with " + groundItemset, starVertex._1);
-                    //Create new candidate itemset
+                    // Create new candidate itemset
                     IntSet newCandidateItemset = new IntOpenHashSet();
                     newCandidateItemset.addAll(groundItemset);
                     newCandidateItemset.addAll(candidateItemset);
@@ -122,9 +120,10 @@ public class CliqueMiner implements FlatMapFunction<Tuple2<Integer, Iterable<Tup
                         existValidSuperSet = true;
                     }
                 }
-			/*pruned is not actually pruning, in simple terms, if there's at least a potential valid superset of the current itemset,
-			  the itemset is not tested in output, otherwise check if the current itemset is a valid candidate
-			 */
+                /*
+                 * pruned is not actually pruning, in simple terms, if there's at least a potential valid superset of
+                 * the current itemset, the itemset is not tested in output, otherwise check if the current itemset is a valid candidate
+                 */
                 if (!existValidSuperSet) {
                     IntSortedSet time_stamps = timestamp_store.get(candidateItemset);
                     time_stamps = simplifier.call(time_stamps);
@@ -139,13 +138,7 @@ public class CliqueMiner implements FlatMapFunction<Tuple2<Integer, Iterable<Tup
             t_end = System.currentTimeMillis();
             long time_taken = t_end - t_start;
             printCliquerDebug("Object-Grow: " + level + ", " + time_taken + " ms  cand_size:" + candidate.size(), starVertex._1);
-//	    if(time_taken > 20000) {
-//		break;
-//	    } else if (time_taken > 12000) {
-//		if(candidate.size() > 1200) {
-//		    break;
-//		}
-//	    }
+
             level++;
             if (nextLevel.isEmpty()) {
                 printCliquerDebug("Exit on level " + level, starVertex._1);

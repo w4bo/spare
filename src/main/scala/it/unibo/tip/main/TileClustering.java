@@ -12,7 +12,6 @@ import model.SnapShot;
 import model.SnapshotClusters;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.log4j.Logger;
-import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.Function;
 import scala.Tuple2;
@@ -51,11 +50,11 @@ public class TileClustering implements ClusteringMethod {
                     sc.addObjects(cluster.getValue());
                     sc.setID(UUID.randomUUID().toString());
                     result.addCluster(sc);
-                    // logger.info("Timestamp: " + timestamp + ", c: " + sc);
+                    logger.info("Timestamp: " + timestamp + ", c: " + sc);
                 }
             }
             long time_end = System.currentTimeMillis();
-            logger.info("Timestamp: " + timestamp + ", Objects: " + v1._2.getObjects().size() + ", Clusters:  " + result.getClusterSize() + ", Time (ms): " + (time_end - time_start));
+            // logger.info("Timestamp: " + timestamp + ", Objects: " + v1._2.getObjects().size() + ", Clusters:  " + result.getClusterSize() + ", Time (ms): " + (time_end - time_start));
             return result;
         }
     }

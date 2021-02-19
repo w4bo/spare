@@ -7,6 +7,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.log4j.Logger;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.util.LongAccumulator;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -24,6 +25,7 @@ public class SPARELauncher implements Serializable {
     private final int k;
     private final int l;
     private final int g;
+    private final LongAccumulator acc;
 
     /**
      * Default constructor for the class.
@@ -36,7 +38,7 @@ public class SPARELauncher implements Serializable {
      * @param gcmpG           g parameter for GCMP
      * @param input_partition the number of partition in which the input will be split.
      */
-    public SPARELauncher(String clusterDir, String itemsetDir, int gcmpM, int gcmpK, int gcmpL, int gcmpG, int input_partition) {
+    public SPARELauncher(String clusterDir, String itemsetDir, int gcmpM, int gcmpK, int gcmpL, int gcmpG, int input_partition, final LongAccumulator acc) {
         this.clusterDir = clusterDir;
         this.itemsetDir = itemsetDir;
         this.m = gcmpM;
@@ -44,6 +46,7 @@ public class SPARELauncher implements Serializable {
         this.l = gcmpL;
         this.g = gcmpG;
         this.partitions = input_partition;
+        this.acc = acc;
     }
 
     /**
@@ -55,19 +58,16 @@ public class SPARELauncher implements Serializable {
         // JavaSparkContext context = new JavaSparkContext(conf);
         // Load input data directly from HDFS and split into the desired number of cluster.
         final JavaRDD<SnapshotClusters> clusters = prevClusters == null ? context.objectFile(clusterDir, partitions) : prevClusters;
-        final AlgoLayout al = new AprioriLayout(k, m, l, g, partitions);
+        final AlgoLayout al = new AprioriLayout(k, m, l, g, partitions, acc);
         al.setInput(clusters);
         JavaRDD<IntSet> output = al.runLogic().filter(v1 -> v1.size() > 0);
         checkOutputFolder(context, itemsetDir);
         final List<IntSet> grounds = output.collect();
         output = output.filter(new DuplicateClusterFilter(grounds)).cache();
         if (prevClusters == null) {
-            output.saveAsTextFile(itemsetDir);
-            logger.info("Patterns: " + output.count());
-            return null;
-        } else {
-            return output;
+            output.repartition(1).saveAsTextFile(itemsetDir);
         }
+        return output;
     }
 
     /**
