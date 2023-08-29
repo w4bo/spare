@@ -32,7 +32,7 @@ object Main {
         this.k = k
         this.l = l
         this.g = g
-        this.input = input
+        this.input = inputTable
         val config = s"${FilenameUtils.getBaseName(input)}-K_$k-L_$l-M_$m-G_$g"
         val clusterDir = s"$outputdir$config/clusters"
         val itemsetDir = s"$outputdir$config/itemsets"
