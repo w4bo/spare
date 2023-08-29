@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/w4bo/spare/compare/1.0.0...1.0.1) (2023-08-29)
+
+
+### Bug Fixes
+
+* **spare:** fix export file name ([8719e65](https://github.com/w4bo/spare/commit/8719e6594d042ea9cc03d6acfdb562eaad0a5853))
+
 ## 1.0.0 (2023-08-29)
 
 
