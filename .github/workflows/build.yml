@@ -19,4 +19,10 @@ jobs:
       - name: Build
         run: |
           chmod +x ./gradlew
-          ./gradlew
+          ./gradlew shadowJar
+      - name: Release
+        run: |
+          npm install
+          npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
