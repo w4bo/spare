@@ -1,16 +1,13 @@
-# TrajectoryMining
-This project is about discovering General Co-movement Pattern from Large-scale Trajectories.
+# Discovering General Co-movement Pattern from Large-scale Trajectories.
 
-I am not longer supporting this project as I have dismissed from previous affliation. For request, please email fanqinus@gmail.com 
-
-#How to run this project
+## How to run this project
 Two tasks are available: _snapshotGeneratorJar_ which build a fat jar
 based on _Spark 2.11_ to execute the **Snapshot Generation** phase
 and _spareJar_ that takes care of the **Star Graph generation** and
 **Apriori Enumeration**.
 Two mocks dataset are included inside the `src/main/resources` folder.
 
-##Running Snapshots generation
+## Running Snapshots generation
 
 Simply launch the following command:
 
