@@ -1,5 +1,7 @@
 # Discovering General Co-movement Pattern from Large-scale Trajectories.
 
+The version used for tests is 1.0.0
+
 ## How to run this project
 Two tasks are available: _snapshotGeneratorJar_ which build a fat jar
 based on _Spark 2.11_ to execute the **Snapshot Generation** phase
