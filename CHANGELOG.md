@@ -1,3 +1,15 @@
+## [1.0.2](https://github.com/w4bo/spare/compare/1.0.1...1.0.2) (2023-08-30)
+
+
+### Bug Fixes
+
+* **ci:** Merge pull request [#30](https://github.com/w4bo/spare/issues/30) from w4bo/feat-ci ([d79f969](https://github.com/w4bo/spare/commit/d79f969524cd6713056fa4de52d3c6b13c96e40f))
+
+
+### Dependency updates
+
+* **deps:** update dependency gradle to v6.5.1 ([c5683ec](https://github.com/w4bo/spare/commit/c5683ecf70ee6995f41ac5505dfc45428876025d))
+
 ## [1.0.1](https://github.com/w4bo/spare/compare/1.0.0...1.0.1) (2023-08-29)
 
 
