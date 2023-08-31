@@ -1,3 +1,15 @@
+## [1.0.5](https://github.com/w4bo/spare/compare/1.0.4...1.0.5) (2023-08-31)
+
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.52 ([8146430](https://github.com/w4bo/spare/commit/81464301a1a8997f307f7a6e74a63bc494a4b782))
+
+
+### Bug Fixes
+
+* **deps:** update dependency org.rogach:scallop_2.11 to v3.1.5 ([df3db7c](https://github.com/w4bo/spare/commit/df3db7c7033293c124eb67b595b910a09714e90a))
+
 ## [1.0.4](https://github.com/w4bo/spare/compare/1.0.3...1.0.4) (2023-08-31)
 
 
