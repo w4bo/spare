@@ -1,3 +1,23 @@
+## [1.0.7](https://github.com/w4bo/spare/compare/1.0.6...1.0.7) (2023-09-02)
+
+
+### Dependency updates
+
+* **deps:** update dependency gradle to v6.9.4 ([25624ad](https://github.com/w4bo/spare/commit/25624ad8a43631d27ada828436699fc0cc5ef5a5))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.53 ([2bcdd57](https://github.com/w4bo/spare/commit/2bcdd570299a4044c7a074a06809febd56c3f0dc))
+* **deps:** update plugin com.github.johnrengelman.shadow to v6.1.0 ([85ff46c](https://github.com/w4bo/spare/commit/85ff46ca7971fcf50ea9fe5b66df2ec24e2411b0))
+* **deps:** update plugin com.github.maiflai.scalatest to v0.32 ([6d36015](https://github.com/w4bo/spare/commit/6d3601571702a0a06d8612cacbd675300c610d41))
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.zaxxer:sparsebitset to v1.2 ([98ad1c3](https://github.com/w4bo/spare/commit/98ad1c3e853e407211fcd92ad705cf4eca0e4aac))
+
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v3.6.0 ([8f01b3d](https://github.com/w4bo/spare/commit/8f01b3d2becf93c9eb9b5cf3b13e891bc59154f6))
+
 ## [1.0.6](https://github.com/w4bo/spare/compare/1.0.5...1.0.6) (2023-08-31)
 
 
