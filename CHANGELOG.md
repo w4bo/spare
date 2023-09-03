@@ -1,3 +1,10 @@
+## [1.0.9](https://github.com/w4bo/spare/compare/1.0.8...1.0.9) (2023-09-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency junit:junit to v4.13.2 ([661a983](https://github.com/w4bo/spare/commit/661a983eabb30a57f6bfa8fd70c6591536ccb002))
+
 ## [1.0.8](https://github.com/w4bo/spare/compare/1.0.7...1.0.8) (2023-09-02)
 
 
