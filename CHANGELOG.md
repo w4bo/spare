@@ -1,3 +1,10 @@
+## [1.0.10](https://github.com/w4bo/spare/compare/1.0.9...1.0.10) (2023-09-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency org.apache.hadoop:hadoop-client to v2.10.2 ([3e58d45](https://github.com/w4bo/spare/commit/3e58d4585c37c683500ccc0de59f67186085a759))
+
 ## [1.0.9](https://github.com/w4bo/spare/compare/1.0.8...1.0.9) (2023-09-03)
 
 
