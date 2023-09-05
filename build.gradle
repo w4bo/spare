@@ -41,7 +41,7 @@ idea {
 
 dependencies {
     implementation 'org.apache.commons:commons-math3:3.6.1'
-    implementation 'com.google.guava:guava:23.6.1-jre'
+    implementation 'com.google.guava:guava:24.1.1-jre'
     implementation 'org.apache.hadoop:hadoop-client:2.10.2'
     implementation 'com.googlecode.princeton-java-introduction:introcs:1.0.0'
     implementation 'it.unimi.dsi:fastutil:7.2.1' // An efficient data structure provider, with fast read/write access
