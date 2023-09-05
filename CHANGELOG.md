@@ -1,3 +1,30 @@
+## [1.0.13](https://github.com/w4bo/spare/compare/1.0.12...1.0.13) (2023-09-05)
+
+
+### Dependency updates
+
+* **deps:** update dependency gradle to v7 ([a0bb1c9](https://github.com/w4bo/spare/commit/a0bb1c9a0834b90a07be7b160794028cb894017f))
+* **deps:** update dependency gradle to v8 ([f9750af](https://github.com/w4bo/spare/commit/f9750af8b10d2b141f52681142bdb3ebc060b6c0))
+* **deps:** update openjdk docker tag to v11 ([f135116](https://github.com/w4bo/spare/commit/f135116a80537b03449030629452fc4c3b09c669))
+* **deps:** update openjdk docker tag to v17 ([fa8ab1e](https://github.com/w4bo/spare/commit/fa8ab1ed0b44c48482f232d96f2e8164ce84914e))
+* **deps:** update plugin com.github.johnrengelman.shadow to v7 ([37da5a2](https://github.com/w4bo/spare/commit/37da5a2c0c5ff866d72b789ca39ff3c8e1820d11))
+* **deps:** update plugin com.github.johnrengelman.shadow to v8 ([c6ba5a7](https://github.com/w4bo/spare/commit/c6ba5a7b1e5dd5cdee799b47f705c5e455a98b59))
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v22 ([d20aca5](https://github.com/w4bo/spare/commit/d20aca5ea819d9fcb95e994b8a1d89015d79d787))
+
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v4 ([1aaa1dd](https://github.com/w4bo/spare/commit/1aaa1dd39c8c5dd720a1bb05adfe16311b712edc))
+* **deps:** update actions/setup-python action to v3 ([aac1e98](https://github.com/w4bo/spare/commit/aac1e98f6076f44f8aa48e9c3c04c76fceff9665))
+* **deps:** update actions/setup-python action to v4 ([70a2d4b](https://github.com/w4bo/spare/commit/70a2d4bc04ca1a4a8e20bf03dea2acef77190385))
+* **deps:** update olafurpg/setup-scala action to v12 ([57d8695](https://github.com/w4bo/spare/commit/57d86954209ab2d7e3f1ff824fe1b2f5a73ccd9a))
+* **deps:** update olafurpg/setup-scala action to v13 ([8da9d36](https://github.com/w4bo/spare/commit/8da9d365821c3b1a4dbb353caa53deaed04a93a0))
+* **deps:** update olafurpg/setup-scala action to v14 ([bdd5977](https://github.com/w4bo/spare/commit/bdd59776c2bbd64e97ab084c4fcd2c8e871886ad))
+
 ## [1.0.12](https://github.com/w4bo/spare/compare/1.0.11...1.0.12) (2023-09-03)
 
 
