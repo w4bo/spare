@@ -1,3 +1,10 @@
+## [1.0.16](https://github.com/w4bo/spare/compare/1.0.15...1.0.16) (2023-09-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v25 ([75badad](https://github.com/w4bo/spare/commit/75badadc2c90dd4613079973cc57c7b47a0f4464))
+
 ## [1.0.15](https://github.com/w4bo/spare/compare/1.0.14...1.0.15) (2023-09-06)
 
 
