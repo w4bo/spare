@@ -1,3 +1,10 @@
+## [1.0.17](https://github.com/w4bo/spare/compare/1.0.16...1.0.17) (2023-09-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.zaxxer:sparsebitset to v1.3 ([1448b68](https://github.com/w4bo/spare/commit/1448b685e4c14aacdf3871e7c8bb93fcd68d68f8))
+
 ## [1.0.16](https://github.com/w4bo/spare/compare/1.0.15...1.0.16) (2023-09-06)
 
 
