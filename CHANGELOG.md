@@ -1,3 +1,10 @@
+## [1.0.18](https://github.com/w4bo/spare/compare/1.0.17...1.0.18) (2023-09-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v26 ([450ba1a](https://github.com/w4bo/spare/commit/450ba1a5a1ce58444400c6a3d61c1931791f9d2f))
+
 ## [1.0.17](https://github.com/w4bo/spare/compare/1.0.16...1.0.17) (2023-09-06)
 
 
