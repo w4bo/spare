@@ -1,3 +1,10 @@
+## [1.0.29](https://github.com/w4bo/spare/compare/1.0.28...1.0.29) (2023-09-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency org.scalatest:scalatest_2.11 to v3 ([8664d40](https://github.com/w4bo/spare/commit/8664d40487ecc0a72c683a5506f5da7c1527db76))
+
 ## [1.0.28](https://github.com/w4bo/spare/compare/1.0.27...1.0.28) (2023-09-09)
 
 
