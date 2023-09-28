@@ -1,3 +1,31 @@
+## [1.0.30](https://github.com/w4bo/spare/compare/1.0.29...1.0.30) (2023-09-28)
+
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.54 ([cd75076](https://github.com/w4bo/spare/commit/cd750762cb7d317830ac5dca69dea9f85e3fd841))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.55 ([d82788c](https://github.com/w4bo/spare/commit/d82788c6c7330a73389a7e5cb70e07a00ff61879))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.56 ([72b4237](https://github.com/w4bo/spare/commit/72b42370dd7285a799f9febbf7ec8a219446ac2a))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.58 ([8230656](https://github.com/w4bo/spare/commit/82306561b2754337cedcfa97d607f6da1d3f72d7))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.59 ([aec53f1](https://github.com/w4bo/spare/commit/aec53f1aea1d6b252778d72ca4d58a110aa7aee8))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.60 ([4c8b970](https://github.com/w4bo/spare/commit/4c8b970562568bc9b15e406915d87ce62b06f737))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.61 ([a4fe8d1](https://github.com/w4bo/spare/commit/a4fe8d1f416799feaff3f2b7bcec297dcebe282c))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.62 ([617e82d](https://github.com/w4bo/spare/commit/617e82d71a33e1ae9c018e306af0fcc44845de8d))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.63 ([9ffc28d](https://github.com/w4bo/spare/commit/9ffc28de578fa74d3d11efbf733c1a42f7c93c86))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.64 ([56826fa](https://github.com/w4bo/spare/commit/56826fac48ee31708a80469db7970529db77209e))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.65 ([a7d6a0d](https://github.com/w4bo/spare/commit/a7d6a0d27a2bdaca9cf74476402c516dfbdcf186))
+* **deps:** update node.js to 18.18 ([ba2fde7](https://github.com/w4bo/spare/commit/ba2fde755f17df12fb2a487f284b6e7f80931b47))
+
+
+### Bug Fixes
+
+* **deps:** update dependency org.apache.spark:spark-core_2.11 to v2.4.8 ([fde5367](https://github.com/w4bo/spare/commit/fde53670c9eeed3ff044056e0843e697243190bc))
+
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v4.1.0 ([850a30f](https://github.com/w4bo/spare/commit/850a30f454d7b94b958c444facc5c048bf3691db))
+
 ## [1.0.29](https://github.com/w4bo/spare/compare/1.0.28...1.0.29) (2023-09-09)
 
 
