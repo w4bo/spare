@@ -1,3 +1,10 @@
+## [1.0.31](https://github.com/w4bo/spare/compare/1.0.30...1.0.31) (2023-09-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency org.apache.spark:spark-hive_2.11 to v2.4.8 ([3e079a8](https://github.com/w4bo/spare/commit/3e079a8a3baebdca906bbb8c4251c05b3a2e5425))
+
 ## [1.0.30](https://github.com/w4bo/spare/compare/1.0.29...1.0.30) (2023-09-28)
 
 
