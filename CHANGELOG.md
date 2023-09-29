@@ -1,3 +1,15 @@
+## [1.0.32](https://github.com/w4bo/spare/compare/1.0.31...1.0.32) (2023-09-29)
+
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.66 ([307c386](https://github.com/w4bo/spare/commit/307c3862158a1015b85f4a97e6f863f3a35cccb2))
+
+
+### Bug Fixes
+
+* **deps:** update dependency org.apache.spark:spark-sql_2.11 to v2.4.8 ([71181bc](https://github.com/w4bo/spare/commit/71181bcebdfb0f714601100dd7bc93e8324a1da8))
+
 ## [1.0.31](https://github.com/w4bo/spare/compare/1.0.30...1.0.31) (2023-09-28)
 
 
