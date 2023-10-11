@@ -1,3 +1,17 @@
+## [1.0.33](https://github.com/w4bo/spare/compare/1.0.32...1.0.33) (2023-10-11)
+
+
+### Dependency updates
+
+* **deps:** update dependency gradle to v8.4 ([477a854](https://github.com/w4bo/spare/commit/477a854886a5f8c758cf78a8eae5c58913595c89))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.67 ([15b36f7](https://github.com/w4bo/spare/commit/15b36f749800a9d9faaf92cd696071454570a713))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.68 ([4df96e9](https://github.com/w4bo/spare/commit/4df96e9e9e011f19d2b0a617734b95467a0acf96))
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v32.1.3-jre ([030b590](https://github.com/w4bo/spare/commit/030b590e0ab0bfce21c484d74eff31338e8a8eb3))
+
 ## [1.0.32](https://github.com/w4bo/spare/compare/1.0.31...1.0.32) (2023-09-29)
 
 
