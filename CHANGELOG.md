@@ -1,3 +1,25 @@
+## [1.0.34](https://github.com/w4bo/spare/compare/1.0.33...1.0.34) (2023-11-05)
+
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.69 ([d3e5380](https://github.com/w4bo/spare/commit/d3e5380a66f6b2014130693f90b75d231d5b6c23))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.70 ([fd1f20e](https://github.com/w4bo/spare/commit/fd1f20efa7788b43b7c1428b65685a43450a0f47))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.71 ([40679fd](https://github.com/w4bo/spare/commit/40679fd208a574202660307cabcbe151d0121ebb))
+* **deps:** update node.js to 20.9 ([f079c42](https://github.com/w4bo/spare/commit/f079c4209b8cce70c031d2bb57e8a1eb45936caa))
+* **deps:** update node.js to v20 ([9a1d14c](https://github.com/w4bo/spare/commit/9a1d14cad4017d0005741a16e298b35fee57e59f))
+* **deps:** update openjdk docker tag to v21 ([62e8ebd](https://github.com/w4bo/spare/commit/62e8ebd49e9c9539c32405bcdd55fd9f20d8f7b2))
+
+
+### Bug Fixes
+
+* **deps:** update dependency org.rogach:scallop_2.11 to v5.0.1 ([09efaf0](https://github.com/w4bo/spare/commit/09efaf077fed714f684edb9f77e0255843e3af37))
+
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v4.1.1 ([2ee553a](https://github.com/w4bo/spare/commit/2ee553ae4d342d89ab1913faa909560c32a8f5e9))
+
 ## [1.0.33](https://github.com/w4bo/spare/compare/1.0.32...1.0.33) (2023-10-11)
 
 
