@@ -1,3 +1,17 @@
+## [1.0.36](https://github.com/w4bo/spare/compare/1.0.35...1.0.36) (2024-02-07)
+
+
+### Dependency updates
+
+* **deps:** update dependency gradle to v8.6 ([ae8edf2](https://github.com/w4bo/spare/commit/ae8edf26742dc419ce18011705c8fc64587d0d23))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.85 ([597b4c5](https://github.com/w4bo/spare/commit/597b4c521c5581735022b651d07dd789a6991e9c))
+* **deps:** update node.js to 20.11 ([47c9444](https://github.com/w4bo/spare/commit/47c94442afd740fa250127683d5233f206febb35))
+
+
+### Bug Fixes
+
+* **deps:** update dependency it.unimi.dsi:fastutil to v8.5.13 ([3f83257](https://github.com/w4bo/spare/commit/3f83257fec1d49e0a1c7addad362d2009ab8d1b7))
+
 ## [1.0.35](https://github.com/w4bo/spare/compare/1.0.34...1.0.35) (2023-12-19)
 
 
