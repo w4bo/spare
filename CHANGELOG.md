@@ -1,3 +1,10 @@
+## [1.0.37](https://github.com/w4bo/spare/compare/1.0.36...1.0.37) (2024-03-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v33.1.0-jre ([69eef9e](https://github.com/w4bo/spare/commit/69eef9ea85a9ed42bc087cd55f24c3fb1e075fd1))
+
 ## [1.0.36](https://github.com/w4bo/spare/compare/1.0.35...1.0.36) (2024-02-07)
 
 
