@@ -1,3 +1,22 @@
+## [1.0.40](https://github.com/w4bo/spare/compare/1.0.39...1.0.40) (2024-05-02)
+
+
+### Dependency updates
+
+* **deps:** update dependency gradle to v8.7 ([4ded2cb](https://github.com/w4bo/spare/commit/4ded2cb08ceff63b7591e1b0a1a823c312c7e93e))
+* **deps:** update node.js to 20.12 ([e73fc67](https://github.com/w4bo/spare/commit/e73fc67a932fcd6e4738840f49e88d00f686f554))
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v33.2.0-jre ([99e5206](https://github.com/w4bo/spare/commit/99e5206559f5409f8c161a533fed0cb9850417ab))
+
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v4.1.3 ([ce66871](https://github.com/w4bo/spare/commit/ce66871287e99fabd3d588aeef518c103b9aea14))
+* **deps:** update actions/checkout action to v4.1.4 ([2fb1627](https://github.com/w4bo/spare/commit/2fb1627f7bd750475f8bf3b7ff12c3fdb89d5a11))
+
 ## [1.0.39](https://github.com/w4bo/spare/compare/1.0.38...1.0.39) (2024-03-19)
 
 
