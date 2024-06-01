@@ -1,3 +1,22 @@
+## [1.0.41](https://github.com/w4bo/spare/compare/1.0.40...1.0.41) (2024-06-01)
+
+
+### Dependency updates
+
+* **deps:** update node.js to 20.13 ([fbe1a77](https://github.com/w4bo/spare/commit/fbe1a777c0245b90aead244d573e501352ff279c))
+* **deps:** update node.js to 20.14 ([edb7145](https://github.com/w4bo/spare/commit/edb71457c873e619e4c22f28061a2b4974840298))
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v33.2.1-jre ([81a571d](https://github.com/w4bo/spare/commit/81a571dd7595a72214c399bd93a07dfcc0548c7f))
+
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v4.1.5 ([b39e140](https://github.com/w4bo/spare/commit/b39e1402814641458bb5c0d8bf86f0c4f4b0a3ff))
+* **deps:** update actions/checkout action to v4.1.6 ([ac5c11d](https://github.com/w4bo/spare/commit/ac5c11db82d3f6c17738672557bb48671bec591a))
+
 ## [1.0.40](https://github.com/w4bo/spare/compare/1.0.39...1.0.40) (2024-05-02)
 
 
