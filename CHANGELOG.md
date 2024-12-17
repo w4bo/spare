@@ -1,3 +1,44 @@
+## [1.0.42](https://github.com/w4bo/spare/compare/1.0.41...1.0.42) (2024-12-17)
+
+### Dependency updates
+
+* **deps:** update dependency gradle to v8.10 ([9ca7c85](https://github.com/w4bo/spare/commit/9ca7c8542b584bd2b381653e7dc0e91d173b508c))
+* **deps:** update dependency gradle to v8.10.1 ([a47da0b](https://github.com/w4bo/spare/commit/a47da0b29bb5d1e8f7623fe05f80552188c1eddd))
+* **deps:** update dependency gradle to v8.10.2 ([ffa5b79](https://github.com/w4bo/spare/commit/ffa5b79e6708b2644939013f4576e3b373f3ba4b))
+* **deps:** update dependency gradle to v8.11 ([#145](https://github.com/w4bo/spare/issues/145)) ([b47a0d4](https://github.com/w4bo/spare/commit/b47a0d44d9838a6b89f2d48f3cae031dd4ef9246))
+* **deps:** update dependency gradle to v8.11.1 ([#146](https://github.com/w4bo/spare/issues/146)) ([758892b](https://github.com/w4bo/spare/commit/758892bf51ce884319bc663504f98078b50ee8de))
+* **deps:** update dependency gradle to v8.8 ([5d72450](https://github.com/w4bo/spare/commit/5d72450bad48d340723d78078a1b0694de41b380))
+* **deps:** update dependency gradle to v8.9 ([e69b92f](https://github.com/w4bo/spare/commit/e69b92fcc658a70161276996c2c59d32a0dd89b7))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.116 ([#128](https://github.com/w4bo/spare/issues/128)) ([761b3f8](https://github.com/w4bo/spare/commit/761b3f8e39475a3c0ffc0c6e9df36fbb56bab147))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.86 ([841a0a3](https://github.com/w4bo/spare/commit/841a0a3e98441dc6166f1e0bec8e98235d30bb4d))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.87 ([dde9c6b](https://github.com/w4bo/spare/commit/dde9c6b6ed5e2c4970cdb9c34461fe0e524a3ff1))
+* **deps:** update node.js to 20.15 ([4256b78](https://github.com/w4bo/spare/commit/4256b786e7d7a33d96c814b76fb68200aeb53376))
+* **deps:** update node.js to 20.16 ([acfb200](https://github.com/w4bo/spare/commit/acfb200dc438e339a8a4ec99fa75dcea61bf8e75))
+* **deps:** update node.js to 20.17 ([ccc202d](https://github.com/w4bo/spare/commit/ccc202db0f9a1c808e17cbdc6904bbffee57629f))
+* **deps:** update node.js to 20.18 ([1d5272a](https://github.com/w4bo/spare/commit/1d5272a298945c5c8434277a671bf340dd200c7d))
+* **deps:** update node.js to 22.12 ([#147](https://github.com/w4bo/spare/issues/147)) ([16f496e](https://github.com/w4bo/spare/commit/16f496e67b4a597a3813751660a46f758aab78de))
+* **deps:** update node.js to v22 ([cd86157](https://github.com/w4bo/spare/commit/cd861576470f63ea302e3b863b5fe1456d94d91a))
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v33.3.0-jre ([4f7d00a](https://github.com/w4bo/spare/commit/4f7d00a2864b064622766a42d59f8e5812d9bffb))
+* **deps:** update dependency com.google.guava:guava to v33.3.1-jre ([b0e3364](https://github.com/w4bo/spare/commit/b0e33641530126c79c849075d4b35930ad6fe680))
+* **deps:** update dependency com.google.guava:guava to v33.4.0-jre ([#149](https://github.com/w4bo/spare/issues/149)) ([2a1e54b](https://github.com/w4bo/spare/commit/2a1e54b822ac76b1668347d77d3c8dbb63948391))
+* **deps:** update dependency it.unimi.dsi:fastutil to v8.5.14 ([c05f923](https://github.com/w4bo/spare/commit/c05f92398bc013cb7c047c783f0a0414a2bb8213))
+* **deps:** update dependency it.unimi.dsi:fastutil to v8.5.15 ([c4566aa](https://github.com/w4bo/spare/commit/c4566aa9aa82a43d5d7d92899362f3003bbb07a9))
+* **deps:** update dependency org.apache.hadoop:hadoop-client to v3.4.1 ([f52f30a](https://github.com/w4bo/spare/commit/f52f30acfc57d6e659ca79630d72c0b7dfa99a89))
+* **deps:** update dependency org.apache.spark:spark-core_2.11 to v2.4.8.7.2.17.0-334 ([2e3b516](https://github.com/w4bo/spare/commit/2e3b5160a95bd8dc658931de4150002f53e0880b))
+* **deps:** update dependency org.apache.spark:spark-hive_2.11 to v2.4.8.7.2.17.0-334 ([f719d6f](https://github.com/w4bo/spare/commit/f719d6f830a1c072885d96d78c4f6da9b5ef7531))
+* **deps:** update dependency org.apache.spark:spark-sql_2.11 to v2.4.8.7.2.17.0-334 ([25bb413](https://github.com/w4bo/spare/commit/25bb4139df2b8048b10f9830a3126cf3cd7e457d))
+* **deps:** update dependency org.rogach:scallop_2.11 to v5.2.0 ([#148](https://github.com/w4bo/spare/issues/148)) ([331e9f1](https://github.com/w4bo/spare/commit/331e9f1736338a33b3b910aadbdc48a3313c29b4))
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v4.1.7 ([fa3fe12](https://github.com/w4bo/spare/commit/fa3fe122b73b253c711b27a8c2406224a82e2f80))
+* **deps:** update actions/checkout action to v4.2.0 ([b8db7a0](https://github.com/w4bo/spare/commit/b8db7a063cd6af764b4377fa7e6a594e2a8923cb))
+* **deps:** update actions/checkout action to v4.2.1 ([acaec12](https://github.com/w4bo/spare/commit/acaec128b4562f94a5b53e83b204e6ca5b086f75))
+* **deps:** update actions/checkout action to v4.2.2 ([3e97be3](https://github.com/w4bo/spare/commit/3e97be3166f499a9bd1321adad301f3431c441e6))
+
 ## [1.0.41](https://github.com/w4bo/spare/compare/1.0.40...1.0.41) (2024-06-01)
 
 
