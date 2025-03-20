@@ -1,3 +1,29 @@
+## [1.0.43](https://github.com/w4bo/spare/compare/1.0.42...1.0.43) (2025-03-20)
+
+### Dependency updates
+
+* **deps:** update dependency gradle to v8.12 ([#151](https://github.com/w4bo/spare/issues/151)) ([2deef6d](https://github.com/w4bo/spare/commit/2deef6db358706282e7c03c9fbaf27a960750ef8))
+* **deps:** update dependency gradle to v8.12.1 ([#155](https://github.com/w4bo/spare/issues/155)) ([2cbedb0](https://github.com/w4bo/spare/commit/2cbedb0e16686757a35151336d28007b9eb9b078))
+* **deps:** update dependency gradle to v8.13 ([#163](https://github.com/w4bo/spare/issues/163)) ([1489e49](https://github.com/w4bo/spare/commit/1489e4901603e9f1568a9647888aaad68424fcc9))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.117 ([#150](https://github.com/w4bo/spare/issues/150)) ([ef91208](https://github.com/w4bo/spare/commit/ef91208cf6fd7287f9fb283c6d79f145fa331642))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.118 ([#152](https://github.com/w4bo/spare/issues/152)) ([c57b911](https://github.com/w4bo/spare/commit/c57b9110f8d5d0282a457be90e09c30e60aa4aab))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.119 ([#154](https://github.com/w4bo/spare/issues/154)) ([eaabe6b](https://github.com/w4bo/spare/commit/eaabe6b45e7f470eeed2048ce7b2f7024bfe119b))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.121 ([#156](https://github.com/w4bo/spare/issues/156)) ([84af5ec](https://github.com/w4bo/spare/commit/84af5ec6851754383485515724be1518edc67f68))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.122 ([#157](https://github.com/w4bo/spare/issues/157)) ([1a59b86](https://github.com/w4bo/spare/commit/1a59b86979d326d76d01c6d55cd10b69ff868a0d))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.123 ([#160](https://github.com/w4bo/spare/issues/160)) ([2c36731](https://github.com/w4bo/spare/commit/2c36731626bcc6bcbc4dcb4ddf669946779ff8e6))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.124 ([#161](https://github.com/w4bo/spare/issues/161)) ([f8e3980](https://github.com/w4bo/spare/commit/f8e398074ff0644636cd5adea6256a900b1038a9))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.125 ([#162](https://github.com/w4bo/spare/issues/162)) ([0bd59e8](https://github.com/w4bo/spare/commit/0bd59e8de07324b1356f142a3e0ffe04ceb9e74e))
+* **deps:** update node.js to 22.13 ([#153](https://github.com/w4bo/spare/issues/153)) ([5aa6d27](https://github.com/w4bo/spare/commit/5aa6d272e77d5da42b5abc5a342fc2f39d9c36b3))
+* **deps:** update node.js to 22.14 ([#159](https://github.com/w4bo/spare/issues/159)) ([d482ad8](https://github.com/w4bo/spare/commit/d482ad874d4355b3a21eea3530a4f2c199bcf890))
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v33.4.5-jre ([#165](https://github.com/w4bo/spare/issues/165)) ([cebccca](https://github.com/w4bo/spare/commit/cebcccac8d6e143e7ac3a1764590d3020040fe2c))
+
+### Build and continuous integration
+
+* **deps:** update dependency python to 3.13 ([#164](https://github.com/w4bo/spare/issues/164)) ([5b4651d](https://github.com/w4bo/spare/commit/5b4651d1a28f26fd2dc8dd0e782caa7a7f45d51c))
+
 ## [1.0.42](https://github.com/w4bo/spare/compare/1.0.41...1.0.42) (2024-12-17)
 
 ### Dependency updates
