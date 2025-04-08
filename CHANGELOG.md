@@ -1,3 +1,9 @@
+## [1.0.45](https://github.com/w4bo/spare/compare/1.0.44...1.0.45) (2025-04-08)
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v33.4.7-android ([#167](https://github.com/w4bo/spare/issues/167)) ([c74057d](https://github.com/w4bo/spare/commit/c74057ddee4ad7e3a97bf137e8eb2bfa57c3b97d))
+
 ## [1.0.44](https://github.com/w4bo/spare/compare/1.0.43...1.0.44) (2025-03-25)
 
 ### Bug Fixes
