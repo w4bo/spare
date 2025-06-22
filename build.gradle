@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.google.guava:guava:33.4.8-jre'
     implementation 'org.apache.hadoop:hadoop-client:3.4.1'
     implementation 'com.googlecode.princeton-java-introduction:introcs:1.0.0'
-    implementation 'it.unimi.dsi:fastutil:8.5.15' // An efficient data structure provider, with fast read/write access
+    implementation 'it.unimi.dsi:fastutil:8.5.16' // An efficient data structure provider, with fast read/write access
     implementation 'com.zaxxer:SparseBitSet:1.3' // An efficient structure of large sparse bits
     implementation 'org.rogach:scallop_2.11:5.2.0'
     implementation 'org.scala-lang:scala-library:2.11.12'
