@@ -1,3 +1,27 @@
+## [1.0.49](https://github.com/w4bo/spare/compare/1.0.48...1.0.49) (2025-08-31)
+
+### Dependency updates
+
+* **deps:** update dependency gradle to v8.14.3 ([#187](https://github.com/w4bo/spare/issues/187)) ([f8a2ae1](https://github.com/w4bo/spare/commit/f8a2ae11c936fbe849f33884a5ab2dcca4080030))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.134 ([#184](https://github.com/w4bo/spare/issues/184)) ([fbda8a6](https://github.com/w4bo/spare/commit/fbda8a602cb005b3c875aa53086ed464473c1c97))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.135 ([#185](https://github.com/w4bo/spare/issues/185)) ([1f425be](https://github.com/w4bo/spare/commit/1f425be9b28158bd6c207c2a6667ac532ce909fd))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.136 ([#186](https://github.com/w4bo/spare/issues/186)) ([c6de6a3](https://github.com/w4bo/spare/commit/c6de6a368e046cff66f09ae9b9b53544b65f9d45))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.137 ([#188](https://github.com/w4bo/spare/issues/188)) ([4fcc39d](https://github.com/w4bo/spare/commit/4fcc39d7ef7a3ed3cc372c91f81e8302d743a79c))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.138 ([#189](https://github.com/w4bo/spare/issues/189)) ([12e05f7](https://github.com/w4bo/spare/commit/12e05f711f8164938aa548fffd5486b1eccfa8c7))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.139 ([#192](https://github.com/w4bo/spare/issues/192)) ([1a48b81](https://github.com/w4bo/spare/commit/1a48b81a34dd8e5dfb2178ae66f7c1e4045fc512))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.140 ([#195](https://github.com/w4bo/spare/issues/195)) ([b14ea95](https://github.com/w4bo/spare/commit/b14ea954e6e149fd3424a92f901c39ef92fce56b))
+* **deps:** update node.js to 22.17 ([#183](https://github.com/w4bo/spare/issues/183)) ([09f828d](https://github.com/w4bo/spare/commit/09f828d6e750fe9b6711781aa00a6b50964cc203))
+* **deps:** update node.js to 22.18 ([#191](https://github.com/w4bo/spare/issues/191)) ([05df255](https://github.com/w4bo/spare/commit/05df255c8a6f79716898406de4d732bf18d7c82a))
+
+### Bug Fixes
+
+* **deps:** update dependency org.apache.hadoop:hadoop-client to v3.4.2 ([#196](https://github.com/w4bo/spare/issues/196)) ([f0ad0f6](https://github.com/w4bo/spare/commit/f0ad0f61e98afa1e2738ae560dad20368582d4c8))
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v4.3.0 ([#193](https://github.com/w4bo/spare/issues/193)) ([b801a46](https://github.com/w4bo/spare/commit/b801a46820f9023e41bb4417d1e8c6c54221bf08))
+* **deps:** update actions/checkout action to v5 ([#194](https://github.com/w4bo/spare/issues/194)) ([e7384d4](https://github.com/w4bo/spare/commit/e7384d4b96bb5664e65f9732cce4e40f3367a0a2))
+
 ## [1.0.48](https://github.com/w4bo/spare/compare/1.0.47...1.0.48) (2025-06-22)
 
 ### Dependency updates
