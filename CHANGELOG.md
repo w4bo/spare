@@ -1,3 +1,21 @@
+## [1.0.50](https://github.com/w4bo/spare/compare/1.0.49...1.0.50) (2025-09-18)
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.141 ([#197](https://github.com/w4bo/spare/issues/197)) ([9e8bc41](https://github.com/w4bo/spare/commit/9e8bc415fe16180a7107aeaf01795c0a99b038b1))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.142 ([#200](https://github.com/w4bo/spare/issues/200)) ([e78d721](https://github.com/w4bo/spare/commit/e78d7216b6b0662c8267f4bfb0def5c7037062db))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.143 ([#201](https://github.com/w4bo/spare/issues/201)) ([9b71102](https://github.com/w4bo/spare/commit/9b71102a33ec4a8e5706a32332006dab9b5a57e9))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.145 ([#202](https://github.com/w4bo/spare/issues/202)) ([2fc1074](https://github.com/w4bo/spare/commit/2fc1074251745717b67ede679b35d14e1ec2c412))
+* **deps:** update node.js to 22.19 ([#198](https://github.com/w4bo/spare/issues/198)) ([742ded6](https://github.com/w4bo/spare/commit/742ded6d035483b0ccd0e2ee0b15a13953d28a16))
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v33.5.0-jre ([#203](https://github.com/w4bo/spare/issues/203)) ([70aba89](https://github.com/w4bo/spare/commit/70aba89b8507eeaac2bea8110c2763d5f8d5f7cf))
+
+### Build and continuous integration
+
+* **deps:** update actions/setup-python action to v6 ([#199](https://github.com/w4bo/spare/issues/199)) ([1862a98](https://github.com/w4bo/spare/commit/1862a9864bcdd6939353a1c40083efa3064b8456))
+
 ## [1.0.49](https://github.com/w4bo/spare/compare/1.0.48...1.0.49) (2025-08-31)
 
 ### Dependency updates
