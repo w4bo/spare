@@ -1,3 +1,16 @@
+## [1.0.51](https://github.com/w4bo/spare/compare/1.0.50...1.0.51) (2025-10-02)
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.146 ([#204](https://github.com/w4bo/spare/issues/204)) ([e236e9e](https://github.com/w4bo/spare/commit/e236e9e3dafe778bfcf0079b294ec430c2369859))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.147 ([#207](https://github.com/w4bo/spare/issues/207)) ([38b924f](https://github.com/w4bo/spare/commit/38b924f67910f42d0936ffdae1570ecaca31a157))
+* **deps:** update node.js to 22.20 ([#205](https://github.com/w4bo/spare/issues/205)) ([4a80326](https://github.com/w4bo/spare/commit/4a80326863e4a9f275f829187a8bf2bdfaa1b639))
+* **deps:** update openjdk docker tag to v25 ([#206](https://github.com/w4bo/spare/issues/206)) ([772699f](https://github.com/w4bo/spare/commit/772699f74c8d443e97c4baff2968c4d74d614926))
+
+### Bug Fixes
+
+* **deps:** update dependency it.unimi.dsi:fastutil to v8.5.17 ([#208](https://github.com/w4bo/spare/issues/208)) ([4db8020](https://github.com/w4bo/spare/commit/4db8020ac42d548aa23acff194f60a23a19a1ac3))
+
 ## [1.0.50](https://github.com/w4bo/spare/compare/1.0.49...1.0.50) (2025-09-18)
 
 ### Dependency updates
