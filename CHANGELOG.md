@@ -1,3 +1,9 @@
+## [1.0.52](https://github.com/w4bo/spare/compare/1.0.51...1.0.52) (2025-10-06)
+
+### Bug Fixes
+
+* **deps:** update dependency it.unimi.dsi:fastutil to v8.5.18 ([#209](https://github.com/w4bo/spare/issues/209)) ([cc2bdb7](https://github.com/w4bo/spare/commit/cc2bdb77c6ded227ea17d28cd5432ff4c65d3d25))
+
 ## [1.0.51](https://github.com/w4bo/spare/compare/1.0.50...1.0.51) (2025-10-02)
 
 ### Dependency updates
