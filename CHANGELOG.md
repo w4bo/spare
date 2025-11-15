@@ -1,3 +1,19 @@
+## [1.0.53](https://github.com/w4bo/spare/compare/1.0.52...1.0.53) (2025-11-15)
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.148 ([#211](https://github.com/w4bo/spare/issues/211)) ([c4455e8](https://github.com/w4bo/spare/commit/c4455e82ff818639317dc34ba738dda83ecaea99))
+* **deps:** update node.js to 22.21 ([#213](https://github.com/w4bo/spare/issues/213)) ([2426820](https://github.com/w4bo/spare/commit/2426820d86409ec5fc241e0c1dfd6e3370db5ee3))
+* **deps:** update node.js to v24 ([#214](https://github.com/w4bo/spare/issues/214)) ([4bc49a8](https://github.com/w4bo/spare/commit/4bc49a860f16e12492c8849b63e4dc2495632c08))
+
+### Bug Fixes
+
+* **deps:** update dependency org.rogach:scallop_2.11 to v5.3.0 ([#215](https://github.com/w4bo/spare/issues/215)) ([0ae0a5a](https://github.com/w4bo/spare/commit/0ae0a5ad8c5e713ed5b575f459b6aa062c0af1b1))
+
+### Build and continuous integration
+
+* **deps:** update dependency python to 3.14 ([#210](https://github.com/w4bo/spare/issues/210)) ([f9c4450](https://github.com/w4bo/spare/commit/f9c4450494ac0f99a757422bc00e1735e92ba854))
+
 ## [1.0.52](https://github.com/w4bo/spare/compare/1.0.51...1.0.52) (2025-10-06)
 
 ### Bug Fixes
