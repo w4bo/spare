@@ -1,3 +1,14 @@
+## [1.0.54](https://github.com/w4bo/spare/compare/1.0.53...1.0.54) (2025-11-30)
+
+### Bug Fixes
+
+* **deps:** update dependency org.rogach:scallop_2.11 to v6 ([#218](https://github.com/w4bo/spare/issues/218)) ([c046f45](https://github.com/w4bo/spare/commit/c046f45942939b859014000a4a5a0ec6d6789c06))
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v5.0.1 ([#216](https://github.com/w4bo/spare/issues/216)) ([bc5bb07](https://github.com/w4bo/spare/commit/bc5bb0719a48f04f9badc7f15fcfe8af3954cff9))
+* **deps:** update actions/checkout action to v6 ([#217](https://github.com/w4bo/spare/issues/217)) ([0aacb00](https://github.com/w4bo/spare/commit/0aacb00435c9315276d3ad7e0c401b6fe62f5257))
+
 ## [1.0.53](https://github.com/w4bo/spare/compare/1.0.52...1.0.53) (2025-11-15)
 
 ### Dependency updates
