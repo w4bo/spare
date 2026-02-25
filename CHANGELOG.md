@@ -1,3 +1,21 @@
+## [1.0.55](https://github.com/w4bo/spare/compare/1.0.54...1.0.55) (2026-02-25)
+
+### Dependency updates
+
+* **deps:** update gradle to v8.14.4 ([#224](https://github.com/w4bo/spare/issues/224)) ([f30ba7c](https://github.com/w4bo/spare/commit/f30ba7cc6100d8d02ab63d32feaf09f8a5931f23))
+* **deps:** update node.js to 24.12 ([#220](https://github.com/w4bo/spare/issues/220)) ([8307f00](https://github.com/w4bo/spare/commit/8307f003942add2205eece04626007dfd6574b6f))
+* **deps:** update node.js to 24.13 ([#221](https://github.com/w4bo/spare/issues/221)) ([5ece3e5](https://github.com/w4bo/spare/commit/5ece3e59e677055e288d2f4062555f73df3f198a))
+* **deps:** update node.js to 24.14 ([#225](https://github.com/w4bo/spare/issues/225)) ([518c9cd](https://github.com/w4bo/spare/commit/518c9cd3e599dd24f929de95bb124e6636181fae))
+
+### Bug Fixes
+
+* **deps:** update dependency org.apache.hadoop:hadoop-client to v3.4.3 ([#226](https://github.com/w4bo/spare/issues/226)) ([6446637](https://github.com/w4bo/spare/commit/6446637cd8d868f5b03fbacbaf667f8908fc7215))
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v6.0.1 ([#219](https://github.com/w4bo/spare/issues/219)) ([4460f40](https://github.com/w4bo/spare/commit/4460f40c630d17a87643ab429ce378b2b72ad6fb))
+* **deps:** update actions/checkout action to v6.0.2 ([#223](https://github.com/w4bo/spare/issues/223)) ([aadeccd](https://github.com/w4bo/spare/commit/aadeccd1bbf9e3c3cbe954d12ebc0a13617e632e))
+
 ## [1.0.54](https://github.com/w4bo/spare/compare/1.0.53...1.0.54) (2025-11-30)
 
 ### Bug Fixes
