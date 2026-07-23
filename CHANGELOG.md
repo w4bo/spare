@@ -1,3 +1,25 @@
+## [1.0.57](https://github.com/w4bo/spare/compare/1.0.56...1.0.57) (2026-07-23)
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.157 ([#212](https://github.com/w4bo/spare/issues/212)) ([03ee294](https://github.com/w4bo/spare/commit/03ee294393ea32c6047a3bbb12a7bbfc9601d61e))
+* **deps:** update gradle to v8.14.5 ([#230](https://github.com/w4bo/spare/issues/230)) ([0822b7b](https://github.com/w4bo/spare/commit/0822b7bf4f49a2b797a5e4ea1be02323a5f0522f))
+* **deps:** update node.js to 24.15 ([#229](https://github.com/w4bo/spare/issues/229)) ([3990a86](https://github.com/w4bo/spare/commit/3990a86ea7efc8d917771df3cc7bea77a4a1dd8c))
+* **deps:** update node.js to 24.16 ([#231](https://github.com/w4bo/spare/issues/231)) ([5e20e27](https://github.com/w4bo/spare/commit/5e20e27fd2778bdc6f42e8d345f0a9fa645bc8ea))
+* **deps:** update node.js to 24.17 ([#233](https://github.com/w4bo/spare/issues/233)) ([e90ee2b](https://github.com/w4bo/spare/commit/e90ee2bb486c208ebf9d7c0a1341b61c3c73ae14))
+* **deps:** update node.js to 24.18 ([#235](https://github.com/w4bo/spare/issues/235)) ([b990e60](https://github.com/w4bo/spare/commit/b990e60ef0ced6884595940b7aea7ffaed6818c7))
+
+### Bug Fixes
+
+* **deps:** update dependency it.unimi.dsi:fastutil to v8.5.19 ([#238](https://github.com/w4bo/spare/issues/238)) ([6d716ec](https://github.com/w4bo/spare/commit/6d716ec35500362f065e4b9efdf174a78584e497))
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v6.0.3 ([#232](https://github.com/w4bo/spare/issues/232)) ([99a0a6c](https://github.com/w4bo/spare/commit/99a0a6ce9217f7fbdc365d4e80e017b226da02a7))
+* **deps:** update actions/checkout action to v7 ([#234](https://github.com/w4bo/spare/issues/234)) ([9d5ec1b](https://github.com/w4bo/spare/commit/9d5ec1bb22661b0e231a47eeed64231e42b95ab8))
+* **deps:** update actions/checkout action to v7.0.1 ([#237](https://github.com/w4bo/spare/issues/237)) ([65805f7](https://github.com/w4bo/spare/commit/65805f71c1d8cfe94ccbb6f6361336e37a3117a2))
+* **deps:** update actions/setup-python action to v7 ([#236](https://github.com/w4bo/spare/issues/236)) ([b1dfcba](https://github.com/w4bo/spare/commit/b1dfcba74271b743c91cea847d42efd19984d5de))
+
 ## [1.0.56](https://github.com/w4bo/spare/compare/1.0.55...1.0.56) (2026-04-16)
 
 ### Bug Fixes
