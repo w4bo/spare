@@ -1,3 +1,13 @@
+## [1.0.58](https://github.com/w4bo/spare/compare/1.0.57...1.0.58) (2026-08-18)
+
+### Dependency updates
+
+* **deps:** update node.js to 24.19 ([#239](https://github.com/w4bo/spare/issues/239)) ([adb5b20](https://github.com/w4bo/spare/commit/adb5b20bd26fd9cdc4b4c9b1e147d218c8ea7318))
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.guava:guava to v33.7.0-jre ([#240](https://github.com/w4bo/spare/issues/240)) ([7725c78](https://github.com/w4bo/spare/commit/7725c78735473e8763e2ef087624b3d4b9e43992))
+
 ## [1.0.57](https://github.com/w4bo/spare/compare/1.0.56...1.0.57) (2026-07-23)
 
 ### Dependency updates
