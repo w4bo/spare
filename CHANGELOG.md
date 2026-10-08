@@ -1,3 +1,9 @@
+## [1.0.61](https://github.com/w4bo/spare/compare/1.0.60...1.0.61) (2026-10-08)
+
+### Bug Fixes
+
+* **deps:** update dependency org.rogach:scallop_2.11 to v6.0.1 ([#245](https://github.com/w4bo/spare/issues/245)) ([2ba14e7](https://github.com/w4bo/spare/commit/2ba14e7153544b0c287f329ad6adc134f346ef58))
+
 ## [1.0.60](https://github.com/w4bo/spare/compare/1.0.59...1.0.60) (2026-09-29)
 
 ### Dependency updates
